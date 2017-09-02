@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+    <changeSet id="001-1" author="gooamoko">
+        <comment>
+            Создадим таблицу данных пользователя
+        </comment>
+        <sql>
+            CREATE TABLE users (
+            usr_pcode bigserial,
+            usr_login varchar(50) NOT NULL UNIQUE,
+            usr_password varchar(255) NOT NULL,
+            usr_fullname varchar(128) NOT NULL,
+            usr_phone varchar(128) NOT NULL,
+            usr_email varchar(255) NOT NULL,
+            usr_role varchar(50) NOT NULL,
+            CONSTRAINT users_pk PRIMARY KEY(usr_pcode));
+        </sql>
+    </changeSet>
+
+    <changeSet id="001-2" author="gooamoko">
+        <comment>
+            Создадим таблицу для категорий
+        </comment>
+        <sql>
+            CREATE TABLE categories (
+            ctg_pcode bigserial,
+            ctg_executor bigint NOT NULL,
+            ctg_title varchar(255) NOT NULL,
+            CONSTRAINT categories_pk PRIMARY KEY(ctg_pcode),
+            CONSTRAINT categories_executor_fk FOREIGN KEY(ctg_executor) REFERENCES users(usr_pcode) ON UPDATE CASCADE ON DELETE CASCADE);
+        </sql>
+    </changeSet>
+
+    <changeSet id="001-3" author="gooamoko">
+        <comment>
+            Создадим таблицу для заявок
+        </comment>
+        <sql>
+            CREATE TABLE tasks (
+            tsk_pcode bigserial,
+            tsk_category bigint NOT NULL,
+            tsk_owner bigint NOT NULL,
+            tsk_executor bigint NOT NULL,
+            tsk_state varchar(50) NOT NULL,
+            tsk_title varchar(255) NOT NULL,
+            tsk_description text NOT NULL,
+            tsk_opened datetime NOT NULL,
+            tsk_closed datetime,
+            CONSTRAINT tasks_pk PRIMARY KEY(tsk_pcode),
+            CONSTRAINT tasks_owner_fk FOREIGN KEY(tsk_owner) REFERENCES users(usr_pcode) ON UPDATE CASCADE ON DELETE CASCADE,
+            CONSTRAINT tasks_category_fk FOREIGN KEY(tsk_category) REFERENCES categories(ctg_pcode) ON UPDATE CASCADE ON DELETE CASCADE,
+            CONSTRAINT tasks_executor_fk FOREIGN KEY(tsk_executor) REFERENCES users(usr_pcode) ON UPDATE CASCADE ON DELETE CASCADE);
+        </sql>
+    </changeSet>
+
+    <changeSet id="001-4" author="gooamoko">
+        <comment>
+            Создадим таблицу для комментариев
+        </comment>
+        <sql>
+            CREATE TABLE comments (
+            cmt_pcode bigserial,
+            cmt_owner bigint NOT NULL,
+            cmt_task bigint NOT NULL,
+            cmt_date datetime NOT NULL,
+            cmt_text text NOT NULL,
+            CONSTRAINT comments_pk PRIMARY KEY(cmt_pcode),
+            CONSTRAINT comments_owner_fk FOREIGN KEY(cmt_owner) REFERENCES users(usr_pcode) ON UPDATE CASCADE ON DELETE CASCADE,
+            CONSTRAINT comments_task_fk FOREIGN KEY(cmt_task) REFERENCES tasks(tsk_pcode) ON UPDATE CASCADE ON DELETE CASCADE);
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

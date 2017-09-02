@@ -1,0 +1,14 @@
+*.iml
+*.ipr
+*.iws
+target
+*.log
+.idea/
+*.classpath
+*.project
+*.settings
+*/build/
+*/local-dir/*
+*/.gradle/
+build
+gradle.properties

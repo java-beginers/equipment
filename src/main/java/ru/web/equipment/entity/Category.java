@@ -4,41 +4,38 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * Класс-сущность для категорий заявок
+ * Класс-сущность для категорий оборудования
  */
 @Entity
 @Table(name = "categories")
 public class Category implements Serializable {
 
     @Id
-    @Column(name = "ctg_pcode")
+    @Column(name = "cat_pcode")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @ManyToOne
-    @JoinColumn(name = "ctg_executor")
-    private User executor;
-
-    @Column(name = "ctg_title", nullable = false, length = 255)
-    private String title;
+    @Column(name = "cat_name", nullable = false, length = 255)
+    private String name;
+    @Column(name = "cat_name", length = 1024)
+    private String description;
 
     public long getId() {
         return id;
     }
 
-    public User getExecutor() {
-        return executor;
+    public String getName() {
+        return name;
     }
 
-    public void setExecutor(User executor) {
-        this.executor = executor;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getTitle() {
-        return title;
+    public String getDescription() {
+        return description;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

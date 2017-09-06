@@ -14,22 +14,16 @@ public class User implements Serializable {
     @Column(name = "usr_pcode")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     @Column(name = "usr_login", unique = true, nullable = false, length = 50)
     private String login;
-
     @Column(name = "usr_password", nullable = false)
     private String passwordHash;
-
     @Column(name = "usr_fullname", nullable = false, length = 128)
     private String fullName;
-
     @Column(name = "usr_phone", nullable = false, length = 128)
     private String phone;
-
     @Column(name = "usr_email", nullable = false)
     private String email;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "usr_role", nullable = false, length = 50)
     private UserRole role = UserRole.ROLE_USER;

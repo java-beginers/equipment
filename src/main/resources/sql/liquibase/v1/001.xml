@@ -32,7 +32,7 @@
             vnd_pcode bigserial,
             vnd_name varchar(255) NOT NULL,
             vnd_site varchar(1024),
-            CONSTRAINT vendors_pk PRIMARY KEY(vnd_pcode);
+            CONSTRAINT vendors_pk PRIMARY KEY(vnd_pcode));
         </sql>
     </changeSet>
 
@@ -45,7 +45,7 @@
             cat_pcode bigserial,
             cat_name varchar(255) NOT NULL,
             cat_description varchar(1024),
-            CONSTRAINT categories_pk PRIMARY KEY(cat_pcode);
+            CONSTRAINT categories_pk PRIMARY KEY(cat_pcode));
         </sql>
     </changeSet>
 

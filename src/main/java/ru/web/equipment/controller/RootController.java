@@ -9,15 +9,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class RootController {
+    private static final String LOGIN_ERROR = "loginError";
 
-    @RequestMapping("/login.html")
+
+    @RequestMapping("/login")
     public String getLoginPage() {
         return "login";
     }
 
-    @RequestMapping("/error-login.html")
+
+    @RequestMapping("/loginError")
     public String getErrorLoginPage(Model model) {
-        model.addAttribute("loginError", true);
+        model.addAttribute(LOGIN_ERROR, true);
         return "login";
     }
 

@@ -5,14 +5,26 @@
     <title>Equipment</title>
 </head>
 <body>
-<h1>Выполните вход</h1>
-<p th:if="${loginError}" class="error">Неправильное имя пользователя или пароль</p>
-<form th:action="@{/templates/login.html}" method="post">
-    <label for="username">Логин</label>:
-    <input type="text" id="username" name="username" autofocus="autofocus"/> <br/>
-    <label for="password">Пароль</label>:
-    <input type="password" id="password" name="password"/> <br/>
-    <input type="submit" value="Вход"/>
+<h1 align="center">Выполните вход</h1>
+<form action="#" th:action="@{/login}" method="post">
+    <table border="0" align="center" width="50%" cellpadding="5">
+        <tr th:if="${loginError}">
+            <td colspan="2" align="center">
+                <p class="error">Неправильное имя пользователя или пароль</p>
+            </td>
+        </tr>
+        <tr>
+            <td align="right" width="50%"><label for="username">Логин</label>:</td>
+            <td align="left" width="50%"><input type="text" id="username" name="username" autofocus="autofocus"/></td>
+        </tr>
+        <tr>
+            <td align="right" width="50%"><label for="password">Пароль</label>:</td>
+            <td align="left" width="50%"><input type="password" id="password" name="password"/></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center"><input type="submit" value="Вход"/></td>
+        </tr>
+    </table>
 </form>
 </body>
 </html>

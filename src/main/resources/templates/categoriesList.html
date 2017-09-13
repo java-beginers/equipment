@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Equipment</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+</head>
+<body>
+<h1>Список категорий оборудования</h1>
+<table class="dataTable">
+    <thead>
+    <tr>
+        <th width="30%">Наименование</th>
+        <th width="50%">Описание</th>
+        <th width="20%">Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="cat : ${categories}">
+        <td th:text="${cat.name}">name</td>
+        <td th:text="${cat.description}">description</td>
+        <td>
+            <a class="action" href="#" th:href="@{/categories/edit/{catId}(catId=${cat.id})}">редактировать</a>
+            <a class="action" href="#" th:href="@{/categories/delete/{catId}(catId=${cat.id})}">удалить</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div class="buttons">
+    <a class="button" href="#" th:href="@{/categories/new}">Добавить категорию</a>
+</div>
+</body>
+</html>

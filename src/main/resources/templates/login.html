@@ -3,28 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Equipment</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
 </head>
 <body>
-<h1 align="center">Выполните вход</h1>
+<h1>Выполните вход</h1>
 <form action="#" th:action="@{/login}" method="post">
-    <table border="0" align="center" width="50%" cellpadding="5">
-        <tr th:if="${loginError}">
-            <td colspan="2" align="center">
-                <p class="error">Неправильное имя пользователя или пароль</p>
-            </td>
-        </tr>
-        <tr>
-            <td align="right" width="50%"><label for="username">Логин</label>:</td>
-            <td align="left" width="50%"><input type="text" id="username" name="username" autofocus="autofocus"/></td>
-        </tr>
-        <tr>
-            <td align="right" width="50%"><label for="password">Пароль</label>:</td>
-            <td align="left" width="50%"><input type="password" id="password" name="password"/></td>
-        </tr>
-        <tr>
-            <td colspan="2" align="center"><input type="submit" value="Вход"/></td>
-        </tr>
-    </table>
+    <div class="form">
+        <div class="errorMessage" th:if="${loginError}">
+            Неправильное имя пользователя или пароль
+        </div>
+        <div>
+            <p>
+                <label for="username">Логин</label><br/>
+                <input class="form" type="text" id="username" name="username" autofocus="autofocus"/>
+            </p>
+            <p>
+                <label for="password">Пароль</label><br/>
+                <input class="form" type="password" id="password" name="password"/>
+            </p>
+        </div>
+        <div class="buttons">
+            <input type="submit" value="Вход"/>
+        </div>
+    </div>
 </form>
 </body>
 </html>

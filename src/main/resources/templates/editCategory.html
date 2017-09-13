@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Equipment</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+</head>
+<body>
+<h1>Новая категория</h1>
+<form action="#" th:action="@{/categories/save}" th:object="${category}" method="post">
+    <div class="form">
+        <div class="errorMessage" th:if="${loginError}" th:text="${errorText}">
+            Тут будет текст ошибки
+        </div>
+        <div>
+            <p>
+                <label for="name">Наименование</label><br/>
+                <input class="form" type="text" th:field="*{name}" id="name" name="username" autofocus="autofocus"/>
+            </p>
+            <p>
+                <label for="description">Описание</label><br/>
+                <input class="form" type="text" th:field="*{description}" id="description" name="description"/>
+            </p>
+            <input type="hidden" th:field="*{id}"/>
+        </div>
+        <div class="buttons">
+            <input type="submit" value="Сохранить"/>
+            <a class="button" href="#" th:href="@{/categories/list}">Отменить</a>
+        </div>
+    </div>
+</form>
+</body>
+</html>

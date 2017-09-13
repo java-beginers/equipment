@@ -14,13 +14,17 @@ public class Vendor implements Serializable{
     @Column(name = "vnd_pcode")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "vnd_name", nullable = false, length = 255)
+    @Column(name = "vnd_name", nullable = false)
     private String name;
     @Column(name = "vnd_site", length = 1024)
     private String site;
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {

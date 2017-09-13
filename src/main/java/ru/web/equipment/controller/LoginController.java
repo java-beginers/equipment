@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Спринговый REST контроллер для перенаправления на главную страницу
  */
 @Controller
-public class RootController {
+public class LoginController {
     private static final String LOGIN_ERROR = "loginError";
 
 

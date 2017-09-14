@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Equipment</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <script src="/js/helpers.js"></script>
 </head>
 <body>
 <h1>Список категорий оборудования</h1>
@@ -21,7 +22,7 @@
         <td th:text="${cat.description}">description</td>
         <td>
             <a class="action" href="#" th:href="@{/categories/edit/{catId}(catId=${cat.id})}">редактировать</a>
-            <a class="action" href="#" th:href="@{/categories/delete/{catId}(catId=${cat.id})}">удалить</a>
+            <a class="action" th:onclick="|confirmDelete('${cat.name}', '@{/categories/delete/{catId}(catId=${cat.id})}')|">удалить</a>
         </td>
     </tr>
     </tbody>

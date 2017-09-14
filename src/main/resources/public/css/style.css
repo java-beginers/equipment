@@ -142,6 +142,10 @@ a.action {
   cursor: pointer;
 }
 
+.rowActions {
+  display: none;
+}
+
 table {
   width: 100%;
 }

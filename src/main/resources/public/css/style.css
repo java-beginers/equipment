@@ -3,7 +3,7 @@ body {
   font-family: Verdana, Helvetica, Arial;
   font-size: 16px;
   color: #04060c;
-  padding: 0 10px
+  margin: 0;
 }
 
 h1,h2,h3,h4 {
@@ -35,6 +35,66 @@ p {
   font: 16px verdana, tahoma, arial;
   color: #04060c;
   margin-bottom: 5px;
+  padding: 0 20px;
+}
+
+.main-menu {
+  padding: 0;
+  margin: 0;
+  background: #000;
+  height: 25px;
+}
+
+.main-menu ul, li {
+  display: inline-block;
+  margin: 0;
+ }
+
+.main-menu li:after {
+  content: "|";
+  color: #606060;
+  display: inline-block;
+  vertical-align:top;
+}
+.main-menu li:last-child:after {
+  content: none;
+ }
+
+ .main-menu a {
+  text-decoration: none;
+  font-family: 'Ubuntu Condensed', sans-serif;
+  letter-spacing: 2px;
+  position: relative;
+  margin: 0 5px 0 0px;
+  font-size: 11px;
+  text-transform: uppercase;
+  display: inline-block;
+  transition: color .2s;
+  color: #ceccce;
+}
+
+.main-menu a.current, .main-menu a:hover{
+  color: #feb386;
+  }
+
+.main-menu a:before,
+.main-menu a:after {
+  content: "";
+  position: absolute;
+  height: 2px;
+  top: auto;
+  right: 50%;
+  bottom: -5px;
+  left: 50%;
+  background: #feb386;
+  transition: .8s;
+}
+
+.main-menu a:hover:before, .main-menu .current:before {
+  left: 0;
+ }
+.main-menu a:hover:after, .main-menu .current:after {
+  right: 0;
 }
 
 div.roundbox {
@@ -148,6 +208,7 @@ a.action {
 
 table {
   width: 100%;
+  padding: 0 20px;
 }
 
 table.details {
@@ -185,4 +246,5 @@ table.details tbody td.value {
   background: #dfded0;
   color: #000000;
 }
+
 

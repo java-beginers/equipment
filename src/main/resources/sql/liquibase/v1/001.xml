@@ -97,7 +97,7 @@
         </sql>
     </changeSet>
 
-    <changeSet id="001-7" author="equipment">
+    <changeSet id="001-8" author="equipment">
         <comment>
             Создадим таблицу для передвижения оборудования
         </comment>
@@ -112,7 +112,7 @@
             CONSTRAINT movements_obj_fk FOREIGN KEY(mov_objcode)
                 REFERENCES objects(obj_pcode),
             CONSTRAINT movements_psn_fk FOREIGN KEY(mov_psncode)
-                REFERENCES persons(psn_pcode));
+                REFERENCES persons(psn_pcode),
             CONSTRAINT movements_plc_fk FOREIGN KEY(mov_plccode)
                 REFERENCES place(plc_pcode));
         </sql>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:fragment="header">
+    <meta charset="UTF-8">
+    <title>Equipment</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
+    <script src="/static/js/jquery-3.2.1.min.js"></script>
+    <script src="/static/js/listhelpers.js"></script>
+</head>
+<body>
+<div th:fragment="menu" class="pageHeader" sec:authorize="isAuthenticated()">
+    <div class="userInfo">
+        Вы вошли как: <span sec:authentication="name">Bob</span>
+    </div>
+    <div class="main-menu" sec:authorize="isAuthenticated()">
+        <ul>
+            <li><a href="/index">Главная</a></li>
+            <li><a href="/categories/list">Оборудование</a></li>
+            <li><a href="#">Сотрудники</a></li>
+            <li><a href="#">Отделы</a></li>
+            <li><a href="#">Тип оборудования</a></li>
+            <li><a href="/logout">Выйти</a></li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

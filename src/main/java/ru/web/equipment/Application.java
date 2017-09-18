@@ -25,6 +25,7 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 
+
 	// Бин для загрузки файлов
 	@Bean(name = "filterMultipartResolver")
 	public CommonsMultipartResolver filterMultipartResolver() {
@@ -32,6 +33,7 @@ public class Application {
 		filterMultipartResolver.setDefaultEncoding("utf-8");
 		return filterMultipartResolver;
 	}
+
 
 	// Кодировщик пароля
 	@Bean(name = "passwordEncoder")

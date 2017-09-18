@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Equipment</title>
-    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
-    <script src="/js/jquery-3.2.1.min.js"></script>
-    <script src="/js/listhelpers.js"></script>
+<head th:replace="fragments/header :: header">
+    <title>Index</title>
 </head>
 <body>
+<div th:replace="fragments/header :: menu" />
 <h1>Список категорий оборудования</h1>
 <div th:each="cat : ${categories}" class="item">
     <div class="itemHeader">
@@ -26,7 +23,6 @@
 </div>
 <div class="buttons">
     <a class="button" href="#" th:href="@{/categories/new}">Добавить категорию</a>
-    <a class="button" href="/index.html">Вернуться</a>
 </div>
 </body>
 </html>

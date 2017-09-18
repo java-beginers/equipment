@@ -1,13 +1,13 @@
 body {
   background: #fffef0;
-  font-family: Verdana, Helvetica, Arial;
+  font-family: Verdana, Helvetica, Arial, serif;
   font-size: 16px;
   color: #04060c;
   margin: 0;
 }
 
 h1,h2,h3,h4 {
-  font-family: Arial, Verdana, Helvetica;
+  font-family: Arial, Verdana, Helvetica, serif;
   font-weight: lighter;
   color: #505050;
   margin-top: 10px;
@@ -38,8 +38,29 @@ p {
   padding: 0 20px;
 }
 
+
+.pageHeader {
+  padding-top: 10px;
+  margin: 0;
+  background: #000;
+  box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+}
+
+.userInfo {
+  margin-left: 40px;
+  color: #ceccce;
+  text-decoration: none;
+  font-size: 11px;
+}
+
+.userInfo span {
+  color: #ceccce;
+  text-decoration: none;
+  font-size: 11px;
+}
+
 .main-menu {
-  padding: 0;
+  padding-top: 10px;
   margin: 0;
   background: #000;
   height: 25px;
@@ -106,7 +127,7 @@ div.item {
 }
 
 div.itemHeader {
-  background-color: #f5b600;
+  background-color: #feb386;
   height: 30px;
   width: 100%;
   margin: 0;
@@ -224,7 +245,7 @@ input[type="button"]:hover,input[type="submit"]:hover,a.button:hover, button:hov
 }
 
 a {
-  color: #04060c;
+  color: #570f00;
   text-decoration: none;
 }
 

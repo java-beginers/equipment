@@ -1,0 +1,12 @@
+﻿<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>Index</title>
+</head>
+<body>
+<div th:replace="fragments/header :: menu" />
+<h1>Веб приложение инвентаризации</h1>
+<p>Данное приложение позволяет вести учет оборудования на предприятии.
+Чтобы работать в приложении, вы должны <a href="#" th:href="@{/login}">пройти авторизацию</a>.</p>
+</body>
+</html>

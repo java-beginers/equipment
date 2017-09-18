@@ -97,7 +97,7 @@
         </sql>
     </changeSet>
 
-    <changeSet id="001-8" author="equipment">
+    <changeSet id="001-7" author="equipment">
         <comment>
             Создадим таблицу для передвижения оборудования
         </comment>

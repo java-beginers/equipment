@@ -97,6 +97,44 @@ p {
   right: 0;
 }
 
+div.item {
+  background-color: #ffffff;
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 20px;
+  box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+}
+
+div.itemHeader {
+  background-color: #f5b600;
+  height: 30px;
+  width: 100%;
+  margin: 0;
+}
+
+div.itemTitle {
+  width: 80%;
+  float: left;
+  height: 30px;
+  font-size: 20px;
+  line-height: 30px;
+}
+
+div.itemMenu {
+  width: auto;
+  float: right;
+  height: 30px;
+  line-height: 30px;
+  padding-right: 5px;
+  display: none;
+}
+
+div.itemBody {
+  padding-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 div.roundbox {
   font-size: 18px;
   text-decoration: none;
@@ -191,7 +229,7 @@ a {
 }
 
 a:hover {
-  color: #174c89;
+  color: #0000ff;
 }
 
 a.action {

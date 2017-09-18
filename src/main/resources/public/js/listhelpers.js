@@ -6,11 +6,11 @@ function confirmDelete(itemName, deleteLink) {
 }
 
 $(document).ready(function () {
-    $('table.dataTable tbody tr').hover(
+    $('div.item').hover(
         function () {
-            $(this).find('td div.rowActions').fadeIn(200)
+            $(this).find('div.itemMenu').fadeIn(200)
         },
         function () {
-            $(this).find('td div.rowActions').fadeOut(200)
+            $(this).find('div.itemMenu').fadeOut(200)
         });
 });

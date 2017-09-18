@@ -5,31 +5,25 @@
     <title>Equipment</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
     <script src="/js/jquery-3.2.1.min.js"></script>
-    <script src="/js/helpers.js"></script>
+    <script src="/js/listhelpers.js"></script>
 </head>
 <body>
 <h1>Список категорий оборудования</h1>
-<table class="dataTable">
-    <thead>
-    <tr>
-        <th width="30%">Наименование</th>
-        <th width="50%">Описание</th>
-        <th width="20%">Действия</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="cat : ${categories}">
-        <td th:text="${cat.name}">name</td>
-        <td th:text="${cat.description}">description</td>
-        <td>
-            <div class="rowActions">
-                <a class="action" href="#" th:href="@{/categories/edit/{catId}(catId=${cat.id})}">редактировать</a>
-                <a class="action" th:onclick="|confirmDelete('${cat.name}', '@{/categories/delete/{catId}(catId=${cat.id})}')|">удалить</a>
-            </div>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div th:each="cat : ${categories}" class="item">
+    <div class="itemHeader">
+        <div class="itemTitle">
+            <a class="action" href="#" th:text="${cat.name}" th:href="@{/categories/edit/{catId}(catId=${cat.id})}">name</a>
+        </div>
+        <div class="itemMenu">
+            <a class="action" th:onclick="|confirmDelete('${cat.name}', '@{/categories/delete/{catId}(catId=${cat.id})}')|">
+                удалить
+            </a>
+        </div>
+    </div>
+    <div class="itemBody">
+        <p th:text="${cat.description}">description</p>
+    </div>
+</div>
 <div class="buttons">
     <a class="button" href="#" th:href="@{/categories/new}">Добавить категорию</a>
     <a class="button" href="/index.html">Вернуться</a>

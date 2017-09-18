@@ -12,7 +12,7 @@ import ru.web.equipment.repository.CategoriesRepository;
 import ru.web.equipment.repository.VendorsRepository;
 
 /**
- * Контроллер для владельцев оборудования.
+ * Контроллер для производителей оборудования.
  */
 @Controller()
 @RequestMapping("/vendors")

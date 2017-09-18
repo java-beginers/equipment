@@ -49,4 +49,73 @@
         </sql>
     </changeSet>
 
+    <changeSet id="001-4" author="equipment">
+        <comment>
+            Создадим таблицу для типов отделов
+        </comment>
+        <sql>
+            CREATE TABLE place (
+            plc_pcode bigserial,
+            plc_name varchar(255) NOT NULL,
+            CONSTRAINT place_pk PRIMARY KEY(plc_pcode));
+        </sql>
+    </changeSet>
+
+    <changeSet id="001-5" author="equipment">
+        <comment>
+            Создадим таблицу для сотрудников организации
+        </comment>
+        <sql>
+            CREATE TABLE persons (
+            psn_pcode bigserial,
+            psn_fname varchar(50) NOT NULL,
+            psn_mname varchar(50) NOT NULL,
+            psn_lname varchar(50) NOT NULL,
+            CONSTRAINT persons_pk PRIMARY KEY(psn_pcode));
+        </sql>
+    </changeSet>
+
+    <changeSet id="001-6" author="equipment">
+        <comment>
+            Создадим таблицу для объектов оборудования
+        </comment>
+        <sql>
+            CREATE TABLE objects (
+            obj_pcode bigserial,
+            obj_catcode int,
+            obj_vndcode int,
+            obj_model varchar(255),
+            obj_description varchar(255),
+            obj_serial varchar(50),
+            obj_inventory varchar(50),
+            obj_damaged boolean,
+            CONSTRAINT objects_pk PRIMARY KEY(obj_pcode),
+            CONSTRAINT objects_cat_fk FOREIGN KEY(obj_catcode)
+                REFERENCES categories(cat_pcode),
+            CONSTRAINT objects_vnd_fk FOREIGN KEY(obj_vndcode)
+                REFERENCES vendors(vnd_pcode));
+        </sql>
+    </changeSet>
+
+    <changeSet id="001-7" author="equipment">
+        <comment>
+            Создадим таблицу для передвижения оборудования
+        </comment>
+        <sql>
+            CREATE TABLE movements (
+            mov_pcode bigserial,
+            mov_objcode int,
+            mov_psncode int,
+            mov_plccode int,
+            mov_date date,
+            CONSTRAINT movements_pk PRIMARY KEY(mov_pcode),
+            CONSTRAINT movements_obj_fk FOREIGN KEY(mov_objcode)
+                REFERENCES objects(obj_pcode),
+            CONSTRAINT movements_psn_fk FOREIGN KEY(mov_psncode)
+                REFERENCES persons(psn_pcode));
+            CONSTRAINT movements_plc_fk FOREIGN KEY(mov_plccode)
+                REFERENCES place(plc_pcode));
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

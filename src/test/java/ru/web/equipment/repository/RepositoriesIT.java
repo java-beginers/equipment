@@ -1,15 +1,18 @@
 package ru.web.equipment.repository;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.web.equipment.entity.Category;
+import ru.web.equipment.entity.Equipment;
 import ru.web.equipment.entity.Vendor;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 
 /**
@@ -26,6 +29,8 @@ public class RepositoriesIT {
     private CategoriesRepository categoriesRepository;
     @Autowired
     private VendorsRepository vendorsRepository;
+    @Autowired
+    private EquipmentsRepository equipmentsRepository;
 
     @Test
     public void testCategories() {
@@ -79,6 +84,82 @@ public class RepositoriesIT {
             assertEquals(vendorSite, record.getSite());
             // Удаляем категорию.
             vendorsRepository.delete(record);
+        }
+    }
+
+    private boolean categoryEquals(Category one, Category two) {
+        if (one.getId() != two.getId()) {
+            return false;
+        }
+        if (!StringUtils.equals(one.getName(), two.getName())) {
+            return false;
+        }
+        if (!StringUtils.equals(one.getDescription(), two.getDescription())) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean vendorEquals(Vendor one, Vendor two) {
+        if (one.getId() != two.getId()) {
+            return false;
+        }
+        if (!StringUtils.equals(one.getName(), two.getName())) {
+            return false;
+        }
+        if (!StringUtils.equals(one.getSite(), two.getSite())) {
+            return false;
+        }
+        return true;
+    }
+
+    @Test
+    public void testEquipments() {
+        // Создаем экземпляр класса тип оборудования
+        Category cat = new Category();
+        cat.setName("test category");
+        categoriesRepository.save(cat);
+
+        // Создаем экземпляр класса производитель
+        Vendor vnd = new Vendor();
+        vnd.setName("test vendor");
+        vendorsRepository.save(vnd);
+
+        final String equipmentModel = "testModel";
+        final String equipmentDescription = "testDescription";
+        final String equipmentSerial = "testSerial";
+        final String equipmentInventory = "testInventory";
+        final Boolean equipmentDamaged = true;
+
+        // Создаем новую запись
+        Equipment testRecord = new Equipment();
+        testRecord.setCategory(cat);
+        testRecord.setVendor(vnd);
+        testRecord.setModel(equipmentModel);
+        testRecord.setDescription(equipmentDescription);
+        testRecord.setSerial(equipmentSerial);
+        testRecord.setInventory(equipmentInventory);
+        testRecord.setDamaged(equipmentDamaged);
+
+        // Удаляем все записи категорий перед тестом.
+        equipmentsRepository.deleteAll();
+        // Сохраняем одну только сто созданную
+        equipmentsRepository.save(testRecord);
+        // Получаем все категории
+        Iterable<Equipment> allRecords = equipmentsRepository.findAll();
+        assertNotNull(allRecords);
+        //Бежим по списку
+        for (Equipment record : allRecords) {
+            // Проверяем поля
+            assertTrue(categoryEquals(cat, record.getCategory()));
+            assertTrue(vendorEquals(vnd, record.getVendor()));
+            assertEquals(equipmentModel, record.getModel());
+            assertEquals(equipmentDescription, record.getDescription());
+            assertEquals(equipmentSerial, record.getSerial());
+            assertEquals(equipmentInventory, record.getInventory());
+            assertEquals(equipmentDamaged, record.getDamaged());
+            // Удаляем категорию.
+            equipmentsRepository.delete(record);
         }
     }
 

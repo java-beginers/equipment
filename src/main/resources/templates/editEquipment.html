@@ -5,15 +5,44 @@
 </head>
 <body>
 <div th:replace="fragments/header :: menu" />
-<h1>Новый объект оборудования</h1>
-<form action="#" th:action="@{/categories/save}" th:object="${category}" method="post">
+<h1>Новая единица оборудования</h1>
+<form action="#" th:action="@{/equipment/save}" th:object="${equipment}" method="post">
     <div class="form">
-        <div class="errorMessage" th:if="${loginError}" th:text="${errorText}">
+        <div class="errorMessage" th:if="${validationError}" th:text="${errorText}">
             Тут будет текст ошибки
         </div>
         <div>
             <p>
-                <label>Тип оборудования</label><br/>
+                <label for="category">Тип оборудования</label><br/>
+                <select th:field="*{categoryCode}" id="category" name="category">
+                    <option th:each="cat : ${allCategories}"
+                            th:value="${cat.id}"
+                            th:text="${cat.name}">category name</option>
+                </select>
+            </p>
+            <p>
+                <label for="vendor">Призводитель</label><br/>
+                <select th:field="*{vendorCode}" id="vendor" name="vendor">
+                    <option th:each="ven : ${allVendors}"
+                            th:value="${ven.id}"
+                            th:text="${ven.name}">vendor name</option>
+                </select>
+            </p>
+            <p>
+                <label for="model">Модель</label><br/>
+                <input class="form" type="text" th:field="*{model}" id="model" name="model"/>
+            </p>
+            <p>
+                <label for="serial">Серийный номер</label><br/>
+                <input class="form" type="text" th:field="*{serial}" id="serial" name="serial"/>
+            </p>
+            <p>
+                <label for="inventory">Инвентарный номер</label><br/>
+                <input class="form" type="text" th:field="*{inventory}" id="inventory" name="inventory"/>
+            </p>
+            <p>
+                <label for="damaged">Неисправно</label><br/>
+                <input type="checkbox" th:field="*{damaged}" id="damaged" name="damaged"/>
             </p>
             <p>
                 <label for="description">Описание</label><br/>
@@ -23,7 +52,7 @@
         </div>
         <div class="buttons">
             <input type="submit" value="Сохранить"/>
-            <a class="button" href="#" th:href="@{/categories/list}">Отменить</a>
+            <a class="button" href="#" th:href="@{/equipment/list}">Отменить</a>
         </div>
     </div>
 </form>

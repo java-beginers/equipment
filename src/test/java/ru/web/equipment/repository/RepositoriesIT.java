@@ -129,7 +129,7 @@ public class RepositoriesIT {
             assertEquals(equipmentDescription, record.getDescription());
             assertEquals(equipmentSerial, record.getSerial());
             assertEquals(equipmentInventory, record.getInventory());
-            assertEquals(equipmentDamaged, record.getDamaged());
+            assertEquals(equipmentDamaged, record.isDamaged());
             // Удаляем категорию.
             equipmentsRepository.delete(record);
         }

@@ -17,9 +17,13 @@ public class Equipment implements Serializable {
     @ManyToOne
     @JoinColumn(name = "eqp_catcode",  nullable = false)
     private Category category;
+    @Transient
+    private long categoryCode;
     @ManyToOne
     @JoinColumn(name = "eqp_vndcode",  nullable = false)
     private Vendor vendor;
+    @Transient
+    private long vendorCode;
     @Column(name = "eqp_model", length = 255)
     private String model;
     @Column(name = "eqp_serial", length = 50)
@@ -27,9 +31,15 @@ public class Equipment implements Serializable {
     @Column(name = "eqp_inventory", length = 50)
     private String inventory;
     @Column(name = "eqp_damaged")
-    private Boolean damaged;
+    private boolean damaged;
     @Column(name = "eqp_description", length = 1024)
     private String description;
+
+    @PostLoad
+    private void updateCodes() {
+        vendorCode = vendor == null ? 0 : vendor.getId();
+        categoryCode = category == null ? 0 : category.getId();
+    }
 
     public long getId() {
         return id;
@@ -79,19 +89,35 @@ public class Equipment implements Serializable {
         this.inventory = inventory;
     }
 
-    public Boolean getDamaged() {
-        return damaged;
-    }
-
-    public void setDamaged(Boolean damaged) {
-        this.damaged = damaged;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public long getCategoryCode() {
+        return categoryCode;
+    }
+
+    public void setCategoryCode(long categoryCode) {
+        this.categoryCode = categoryCode;
+    }
+
+    public long getVendorCode() {
+        return vendorCode;
+    }
+
+    public void setVendorCode(long vendorCode) {
+        this.vendorCode = vendorCode;
+    }
+
+    public boolean isDamaged() {
+        return damaged;
+    }
+
+    public void setDamaged(boolean damaged) {
+        this.damaged = damaged;
     }
 }

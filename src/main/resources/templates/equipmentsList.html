@@ -5,7 +5,7 @@
 </head>
 <body>
 <div th:replace="fragments/header :: menu" />
-<h1>Список типов оборудования</h1>
+<h1>Список оборудования</h1>
 <div th:each="eqp : ${equipments}" class="item">
     <div class="itemHeader">
         <div class="itemTitle">
@@ -18,15 +18,15 @@
         </div>
     </div>
     <div class="itemBody">
-        <p th:text=" 'Тип: ' + ${eqp.category}"></p>
-        <p th:text=" 'Производитель: ' + ${eqp.vendor}"></p>
+        <p th:text=" 'Тип: ' + ${eqp.category.name}"></p>
+        <p th:text=" 'Производитель: ' + ${eqp.vendor.name}"></p>
         <p th:text=" 'Серийный №: ' + ${eqp.serial}"></p>
         <p th:text=" 'Исправно: ' + ${eqp.damaged}"></p>
         <p th:text=" 'Описание: ' + ${eqp.description}"></p>
     </div>
 </div>
 <div class="buttons">
-    <a class="button" href="#" th:href="@{/categories/new}">Добавить</a>
+    <a class="button" href="#" th:href="@{/equipment/new}">Добавить</a>
 </div>
 </body>
 </html>

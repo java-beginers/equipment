@@ -8,20 +8,26 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.web.equipment.entity.Category;
 import ru.web.equipment.entity.Equipment;
+import ru.web.equipment.entity.Vendor;
 import ru.web.equipment.repository.CategoriesRepository;
 import ru.web.equipment.repository.EquipmentsRepository;
+import ru.web.equipment.repository.VendorsRepository;
 
 /**
  * Контроллер для категорий оборудования.
  */
 @Controller()
-@RequestMapping("/equipments")
-public class EquipmentsController {
-    private static final Logger log = LoggerFactory.getLogger(EquipmentsController.class);
-    private static final String REDIRECT_TO_LIST = "redirect:/equipments/list";
+@RequestMapping("/equipment")
+public class EquipmentController {
+    private static final Logger log = LoggerFactory.getLogger(EquipmentController.class);
+    private static final String REDIRECT_TO_LIST = "redirect:/equipment/list";
 
     @Autowired
     private EquipmentsRepository equipmentsRepository;
+    @Autowired
+    private CategoriesRepository categoriesRepository;
+    @Autowired
+    private VendorsRepository vendorsRepository;
 
     @GetMapping("list")
     public String getEquipmentsList(Model model) {
@@ -33,7 +39,11 @@ public class EquipmentsController {
 
     @GetMapping("new")
     public String newEquipment(Model model) {
+        Iterable<Category> categories = categoriesRepository.findAll();
+        Iterable<Vendor> vendors = vendorsRepository.findAll();
         model.addAttribute("equipment", new Equipment());
+        model.addAttribute("allCategories", categories);
+        model.addAttribute("allVendors", vendors);
         return "editEquipment";
     }
 
@@ -42,6 +52,11 @@ public class EquipmentsController {
     public String saveNewEquipment(@ModelAttribute Equipment equipment) {
 
         if (equipment != null) {
+            equipment.setCategory(fetchCategory(equipment.getCategoryCode()));
+            equipment.setVendor(fetchVendor(equipment.getVendorCode()));
+
+            // TODO: 20.09.17 Проверить данные на корректность.
+
             equipmentsRepository.save(equipment);
         }
         return REDIRECT_TO_LIST;
@@ -74,5 +89,15 @@ public class EquipmentsController {
             }
         }
         return REDIRECT_TO_LIST;
+    }
+
+
+    private Category fetchCategory(long categoryCode) {
+        return categoryCode == 0 ? null : categoriesRepository.findOne(categoryCode);
+    }
+
+
+    private Vendor fetchVendor(long vendorCode) {
+        return vendorCode == 0 ? null : vendorsRepository.findOne(vendorCode);
     }
 }

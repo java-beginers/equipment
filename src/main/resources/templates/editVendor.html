@@ -8,7 +8,7 @@
 <h1>Новый производитель</h1>
 <form action="#" th:action="@{/vendors/save}" th:object="${vendor}" method="post">
     <div class="form">
-        <div class="errorMessage" th:if="${loginError}" th:text="${errorText}">
+        <div class="errorMessage" th:if="${validationError}" th:text="${errorText}">
             Тут будет текст ошибки
         </div>
         <div>

@@ -1,6 +1,5 @@
 package ru.web.equipment.repository;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import ru.web.equipment.entity.Vendor;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 
 /**
@@ -87,32 +85,6 @@ public class RepositoriesIT {
         }
     }
 
-    private boolean categoryEquals(Category one, Category two) {
-        if (one.getId() != two.getId()) {
-            return false;
-        }
-        if (!StringUtils.equals(one.getName(), two.getName())) {
-            return false;
-        }
-        if (!StringUtils.equals(one.getDescription(), two.getDescription())) {
-            return false;
-        }
-        return true;
-    }
-
-    private boolean vendorEquals(Vendor one, Vendor two) {
-        if (one.getId() != two.getId()) {
-            return false;
-        }
-        if (!StringUtils.equals(one.getName(), two.getName())) {
-            return false;
-        }
-        if (!StringUtils.equals(one.getSite(), two.getSite())) {
-            return false;
-        }
-        return true;
-    }
-
     @Test
     public void testEquipments() {
         // Создаем экземпляр класса тип оборудования
@@ -151,8 +123,8 @@ public class RepositoriesIT {
         //Бежим по списку
         for (Equipment record : allRecords) {
             // Проверяем поля
-            assertTrue(categoryEquals(cat, record.getCategory()));
-            assertTrue(vendorEquals(vnd, record.getVendor()));
+            assertEquals(cat, record.getCategory());
+            assertEquals(vnd, record.getVendor());
             assertEquals(equipmentModel, record.getModel());
             assertEquals(equipmentDescription, record.getDescription());
             assertEquals(equipmentSerial, record.getSerial());

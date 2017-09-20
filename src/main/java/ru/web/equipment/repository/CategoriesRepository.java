@@ -4,7 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 import ru.web.equipment.entity.Category;
 
 /**
- * Репозиторий для категорий
+ * Репозиторий для типов оборудования
  */
 public interface CategoriesRepository extends CrudRepository<Category, Long> {
 

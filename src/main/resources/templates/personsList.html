@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>Index</title>
+</head>
+<body>
+<div th:replace="fragments/header :: menu" />
+<h1>Список сотрудников</h1>
+<div th:each="psn : ${persons}" class="item">
+    <div class="itemHeader">
+        <div class="itemTitle">
+            <a class="action" href="#" th:text="${psn.fullName}" th:href="@{/persons/edit/{psnId}(psnId=${psn.id})}"></a>
+        </div>
+        <div class="itemMenu">
+            <a class="action" th:onclick="|confirmDelete('${psn.fullName}', '@{/persons/delete/{psnId}(psnId=${psn.id})}')|">
+                удалить
+            </a>
+        </div>
+    </div>
+    <div class="itemBody">
+        <p th:text="${psn.phone} + ' ' + ${psn.mail} + ' ' + ${psn.description}"></p>
+    </div>
+</div>
+<div class="buttons">
+    <a class="button" href="#" th:href="@{/persons/new}">Добавить категорию</a>
+</div>
+</body>
+</html>

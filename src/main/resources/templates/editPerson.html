@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>Index</title>
+</head>
+<body>
+<div th:replace="fragments/header :: menu" />
+<h1>Новый сотрудник</h1>
+<form action="#" th:action="@{/persons/save}" th:object="${person}" method="post">
+    <div class="form">
+        <div class="errorMessage" th:if="${loginError}" th:text="${errorText}">
+            Тут будет текст ошибки
+        </div>
+        <div>
+            <p>
+                <label for="fname">Фамилия</label><br/>
+                <input class="form" type="text" th:field="*{fname}" id="fname" name="fname" autofocus="autofocus"/>
+            </p>
+            <p>
+                <label for="mname">Имя</label><br/>
+                <input class="form" type="text" th:field="*{mname}" id="mname" name="mname" autofocus="autofocus"/>
+            </p>
+            <p>
+                <label for="lname">Отчество</label><br/>
+                <input class="form" type="text" th:field="*{lname}" id="lname" name="lname" autofocus="autofocus"/>
+            </p>
+            <p>
+                <label for="phone">Телефон</label><br/>
+                <input class="form" type="text" th:field="*{phone}" id="phone" name="phone" autofocus="autofocus"/>
+            </p>
+            <p>
+                <label for="mail">Почта(Mail)</label><br/>
+                <input class="form" type="text" th:field="*{mail}" id="mail" name="mail" autofocus="autofocus"/>
+            </p>
+            <p>
+                <label for="description">Описание</label><br/>
+                <input class="form" type="text" th:field="*{description}" id="description" name="description"/>
+            </p>
+            <input type="hidden" th:field="*{id}"/>
+        </div>
+        <div class="buttons">
+            <input type="submit" value="Сохранить"/>
+            <a class="button" href="#" th:href="@{/persons/list}">Отменить</a>
+        </div>
+    </div>
+</form>
+</body>
+</html>

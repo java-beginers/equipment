@@ -54,7 +54,7 @@
             Создадим таблицу для типов отделов
         </comment>
         <sql>
-            CREATE TABLE place (
+            CREATE TABLE places (
             plc_pcode bigserial,
             plc_name varchar(255) NOT NULL,
             CONSTRAINT place_pk PRIMARY KEY(plc_pcode));
@@ -71,6 +71,9 @@
             psn_fname varchar(50) NOT NULL,
             psn_mname varchar(50) NOT NULL,
             psn_lname varchar(50) NOT NULL,
+            psn_phone varchar(15),
+            psn_mail varchar(30),
+            psn_description varchar(1024),
             CONSTRAINT persons_pk PRIMARY KEY(psn_pcode));
         </sql>
     </changeSet>
@@ -80,19 +83,19 @@
             Создадим таблицу для объектов оборудования
         </comment>
         <sql>
-            CREATE TABLE objects (
-            obj_pcode bigserial,
-            obj_catcode int,
-            obj_vndcode int,
-            obj_model varchar(255),
-            obj_description varchar(255),
-            obj_serial varchar(50),
-            obj_inventory varchar(50),
-            obj_damaged boolean,
-            CONSTRAINT objects_pk PRIMARY KEY(obj_pcode),
-            CONSTRAINT objects_cat_fk FOREIGN KEY(obj_catcode)
+            CREATE TABLE equipments (
+            eqp_pcode bigserial,
+            eqp_catcode int,
+            eqp_vndcode int,
+            eqp_model varchar(255),
+            eqp_description varchar(1024),
+            eqp_serial varchar(50),
+            eqp_inventory varchar(50),
+            eqp_damaged boolean,
+            CONSTRAINT equipments_pk PRIMARY KEY(eqp_pcode),
+            CONSTRAINT equipments_cat_fk FOREIGN KEY(eqp_catcode)
                 REFERENCES categories(cat_pcode),
-            CONSTRAINT objects_vnd_fk FOREIGN KEY(obj_vndcode)
+            CONSTRAINT equipments_vnd_fk FOREIGN KEY(eqp_vndcode)
                 REFERENCES vendors(vnd_pcode));
         </sql>
     </changeSet>
@@ -110,11 +113,11 @@
             mov_date date,
             CONSTRAINT movements_pk PRIMARY KEY(mov_pcode),
             CONSTRAINT movements_obj_fk FOREIGN KEY(mov_objcode)
-                REFERENCES objects(obj_pcode),
+                REFERENCES equipments(eqp_pcode),
             CONSTRAINT movements_psn_fk FOREIGN KEY(mov_psncode)
                 REFERENCES persons(psn_pcode),
             CONSTRAINT movements_plc_fk FOREIGN KEY(mov_plccode)
-                REFERENCES place(plc_pcode));
+                REFERENCES places(plc_pcode));
         </sql>
     </changeSet>
 

@@ -31,8 +31,8 @@ public class EquipmentController {
 
     @GetMapping("list")
     public String getEquipmentsList(Model model) {
-        Iterable<Equipment> equipments = equipmentsRepository.findAll();
-        model.addAttribute("equipments", equipments);
+        Iterable<Equipment> equipment = equipmentsRepository.findAll();
+        model.addAttribute("equipment", equipment);
         return "equipmentsList";
     }
 

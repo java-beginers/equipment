@@ -9,10 +9,10 @@
 <div th:each="eqp : ${equipments}" class="item">
     <div class="itemHeader">
         <div class="itemTitle">
-            <a class="action" href="#" th:text="${eqp.inventory}" th:href="@{/equipments/edit/{eqpId}(eqpId=${eqp.id})}">name</a>
+            <a class="action" href="#" th:text="${eqp.inventory}" th:href="@{/equipment/edit/{eqpId}(eqpId=${eqp.id})}">name</a>
         </div>
         <div class="itemMenu">
-            <a class="action" th:onclick="|confirmDelete('${eqp.inventory}', '@{/equipments/delete/{eqpId}(eqpId=${eqp.id})}')|">
+            <a class="action" th:onclick="|confirmDelete('${eqp.inventory}', '@{/equipment/delete/{eqpId}(eqpId=${eqp.id})}')|">
                 удалить
             </a>
         </div>

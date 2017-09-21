@@ -12,10 +12,5 @@ $(document).ready(function () {
         },
         function () {
             $(this).find('div.itemMenu').fadeOut(200)
-        }).click(
-        function () {
-            $(this).find('div.itemBody').fadeToggle(200)
         });
-
-
 });

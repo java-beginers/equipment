@@ -1,8 +1,10 @@
 package ru.web.equipment.security;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,9 +14,7 @@ import ru.web.equipment.entity.User;
 import ru.web.equipment.entity.UserRole;
 import ru.web.equipment.repository.UserRepository;
 
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 /**
  * Сервис, возвращающий информаци о пользователе
@@ -22,18 +22,20 @@ import java.util.GregorianCalendar;
  */
 @Service
 public class  CurrentUserDetailsService implements UserDetailsService {
+    private static final Logger log = LoggerFactory.getLogger(CurrentUserDetailsService.class);
+    private final static int DEFAULT_PASSWORD_AGE = 30; // срок жизни пароля по умолчанию.
+    public final static String PASSWORD_AGE = "password.max-age";
+    public final static String ADMIN_LOGIN = "admin.login";
+    public final static String ADMIN_PASSWORD = "admin.password";
 
-    @Autowired
+
     private UserRepository userRepository;
-    @Autowired
     private PasswordEncoder passwordEncoder;
-    @Value("${admin.login}")
-    private String login;
-    @Value("${admin.password}")
-    private String password;
+    private Environment environment;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
         User user = null;
         try {
             user = userRepository.findOneByLogin(username);
@@ -41,14 +43,16 @@ public class  CurrentUserDetailsService implements UserDetailsService {
             // Ничего не делаем. Видимо, пользователя нет
         }
         if (user == null) {
-            user = getAdminUser();
+            user = getAdminUser(username);
         }
-        return new CurrentUserDetails(user);
+        return new CurrentUserDetails(user, getPasswordAge());
     }
 
     // Встроенный администратор
-    private User getAdminUser() {
-        if (StringUtils.isBlank(login) || StringUtils.isBlank(password)) {
+    private User getAdminUser(String userName) {
+        String login = getLogin();
+        String password = getPassword();
+        if (!StringUtils.equals(userName, login) || StringUtils.isBlank(password)) {
             return null;
         }
         User user = new User();
@@ -56,8 +60,45 @@ public class  CurrentUserDetailsService implements UserDetailsService {
         user.setRole(UserRole.ROLE_ADMIN);
         user.setLogin(login);
         user.setPasswordHash(passwordEncoder.encode(password));
+        user.setEnabled(true);
         user.setPwdchangedate(new Date());
         return user;
     }
 
+    private String getLogin() {
+        return environment.getProperty(ADMIN_LOGIN);
+    }
+
+    private String getPassword() {
+        return environment.getProperty(ADMIN_PASSWORD);
+    }
+
+    private int getPasswordAge() {
+        String ageValue = environment.getProperty(PASSWORD_AGE);
+        if (StringUtils.isNotBlank(ageValue)) {
+            try {
+                int age = Integer.parseInt(ageValue);
+                return age <= 0 ? DEFAULT_PASSWORD_AGE : age;
+            } catch (Exception e) {
+                String message = String.format("Некорректное значение параметра %s [%s]", PASSWORD_AGE, ageValue);
+                log.error(message, e);
+            }
+        }
+        return DEFAULT_PASSWORD_AGE;
+    }
+
+    @Autowired
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    @Autowired
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    @Autowired
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
+    }
 }

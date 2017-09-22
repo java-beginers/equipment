@@ -31,19 +31,18 @@ public class User implements Serializable {
     @Column(name = "usr_role", nullable = false, length = 50)
     private UserRole role = UserRole.ROLE_USER;
     @Column(name = "usr_enabled", nullable = false)
-    private Boolean enabled;
+    private boolean enabled;
     @Column(name = "usr_expired", nullable = false)
-    private Boolean expired;
+    private boolean expired;
     @Column(name = "usr_pwdchange_date", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date pwdchangedate;
 
-    @PostLoad
-    public void checkPasswordExpired() {
+    public void checkPasswordExpired(int daysCount) {
         if (pwdchangedate != null) {
             Calendar calendar = new GregorianCalendar();
             calendar.setTime(pwdchangedate);
-            calendar.add(Calendar.DAY_OF_MONTH, 30); // время действия пароля месяц
+            calendar.add(Calendar.DAY_OF_MONTH, daysCount); // время действия пароля месяц
             Date expirationDate = calendar.getTime();
             expired = expirationDate.before(new Date());
         }

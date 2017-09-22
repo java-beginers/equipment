@@ -1,13 +1,11 @@
 package ru.web.equipment.security;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import ru.web.equipment.entity.User;
 
 import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Collections;
 
 /**
  * Обертка для спрингового сервиса безопасности.
@@ -17,15 +15,16 @@ public class CurrentUserDetails implements UserDetails {
 
     private User user;
 
-    public CurrentUserDetails(User user) {
+    public CurrentUserDetails(User user, int passwordAge) {
         this.user = user;
+        if (user != null) {
+            user.checkPasswordExpired(passwordAge);
+        }
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> roles = new LinkedList<>();
-        roles.add(new SimpleGrantedAuthority("USER"));
-        return roles;
+        return user == null ? Collections.emptyList() : Collections.singletonList(user.getRole());
     }
 
     @Override
@@ -35,35 +34,30 @@ public class CurrentUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user == null ? null : user.getLogin();
+        return user == null ? null : user.getFullName();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return isCredentialsNonExpired();
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return isEnabled();
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
-        //return !user.isExpired();
+        return user != null && !user.isExpired();
     }
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return user != null && user.isEnabled();
     }
 
     public User getUser() {
         return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }

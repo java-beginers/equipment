@@ -12,12 +12,16 @@ import ru.web.equipment.entity.User;
 import ru.web.equipment.entity.UserRole;
 import ru.web.equipment.repository.UserRepository;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 /**
  * Сервис, возвращающий информаци о пользователе
  * Created by leonid on 12.11.16.
  */
 @Service
-public class CurrentUserDetailsService implements UserDetailsService {
+public class  CurrentUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
@@ -52,6 +56,7 @@ public class CurrentUserDetailsService implements UserDetailsService {
         user.setRole(UserRole.ROLE_ADMIN);
         user.setLogin(login);
         user.setPasswordHash(passwordEncoder.encode(password));
+        user.setPwdchangedate(new Date());
         return user;
     }
 

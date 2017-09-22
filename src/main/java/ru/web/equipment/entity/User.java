@@ -2,6 +2,9 @@ package ru.web.equipment.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * Класс, представляющий собой сущность пользователя
@@ -27,6 +30,24 @@ public class User implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "usr_role", nullable = false, length = 50)
     private UserRole role = UserRole.ROLE_USER;
+    @Column(name = "usr_enabled", nullable = false)
+    private Boolean enabled;
+    @Column(name = "usr_expired", nullable = false)
+    private Boolean expired;
+    @Column(name = "usr_pwdchange_date", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date pwdchangedate;
+
+    @PostLoad
+    public void checkPasswordExpired() {
+        if (pwdchangedate != null) {
+            Calendar calendar = new GregorianCalendar();
+            calendar.setTime(pwdchangedate);
+            calendar.add(Calendar.DAY_OF_MONTH, 30); // время действия пароля месяц
+            Date expirationDate = calendar.getTime();
+            expired = expirationDate.before(new Date());
+        }
+    }
 
     public long getId() {
         return id;
@@ -82,5 +103,29 @@ public class User implements Serializable {
 
     public void setRole(UserRole role) {
         this.role = role;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public boolean isExpired() {
+        return expired;
+    }
+
+    public void setExpired(boolean expired) {
+        this.expired = expired;
+    }
+
+    public Date getPwdchangedate() {
+        return pwdchangedate;
+    }
+
+    public void setPwdchangedate(Date pwdchangedate) {
+        this.pwdchangedate = pwdchangedate;
     }
 }

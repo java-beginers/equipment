@@ -19,6 +19,9 @@
             usr_phone varchar(128) NOT NULL,
             usr_email varchar(255) NOT NULL,
             usr_role varchar(50) NOT NULL,
+            usr_enabled boolean NOT NULL,
+            usr_expired boolean NOT NULL,
+            usr_pwdchange_date date NOT NULL,
             CONSTRAINT users_pk PRIMARY KEY(usr_pcode));
         </sql>
     </changeSet>

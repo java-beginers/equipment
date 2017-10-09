@@ -15,26 +15,37 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-	@Autowired
 	private transient UserDetailsService detailsService;
-
-	@Autowired
 	private transient PasswordEncoder passwordEncoder;
+
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 				.antMatchers("/static/**", "/").permitAll()
 				.antMatchers("/**").authenticated()
+				.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
 				.and().formLogin().loginPage("/login").failureUrl("/loginError").defaultSuccessUrl("/index").permitAll()
 				.and().logout().logoutSuccessUrl("/index").permitAll()
 				.and().csrf().disable();
 		http.headers().frameOptions().disable();
 	}
 
+
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(detailsService).passwordEncoder(passwordEncoder);
+	}
+
+
+	@Autowired
+	public void setDetailsService(UserDetailsService detailsService) {
+		this.detailsService = detailsService;
+	}
+
+
+	@Autowired
+	public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+		this.passwordEncoder = passwordEncoder;
 	}
 }

@@ -6,7 +6,6 @@
     <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
     <script src="/static/js/jquery-3.2.1.min.js"></script>
     <script src="/static/js/listhelpers.js"></script>
-    <script src="/static/js/listview.js"></script>
 </head>
 <body>
 <div th:fragment="menu" class="pageHeader" sec:authorize="isAuthenticated()">
@@ -21,6 +20,7 @@
             <li><a href="/places/list">Отделы</a></li>
             <li><a href="/vendors/list">Производители</a></li>
             <li><a href="/equipment/list">Оборудование</a></li>
+            <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/admin">Администрирование</a></li>
             <li><a href="/logout">Выйти</a></li>
         </ul>
     </div>

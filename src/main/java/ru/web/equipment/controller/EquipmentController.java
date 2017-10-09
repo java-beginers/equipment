@@ -21,12 +21,8 @@ import ru.web.equipment.repository.VendorsRepository;
 public class EquipmentController {
     private static final Logger log = LoggerFactory.getLogger(EquipmentController.class);
     private static final String REDIRECT_TO_LIST = "redirect:/equipment/list";
-
-    @Autowired
     private EquipmentsRepository equipmentsRepository;
-    @Autowired
     private CategoriesRepository categoriesRepository;
-    @Autowired
     private VendorsRepository vendorsRepository;
 
     @GetMapping("list")
@@ -116,5 +112,20 @@ public class EquipmentController {
 
     private Vendor fetchVendor(long vendorCode) {
         return vendorCode == 0 ? null : vendorsRepository.findOne(vendorCode);
+    }
+
+    @Autowired
+    public void setEquipmentsRepository(EquipmentsRepository equipmentsRepository) {
+        this.equipmentsRepository = equipmentsRepository;
+    }
+
+    @Autowired
+    public void setCategoriesRepository(CategoriesRepository categoriesRepository) {
+        this.categoriesRepository = categoriesRepository;
+    }
+
+    @Autowired
+    public void setVendorsRepository(VendorsRepository vendorsRepository) {
+        this.vendorsRepository = vendorsRepository;
     }
 }

@@ -18,6 +18,13 @@ public class RootController {
         return "index";
     }
 
+
+    @RequestMapping("/admin")
+    public String getAdminPage() {
+        return "admin";
+    }
+
+
     @RequestMapping("/index.html")
     public String getIndexPage2() {
         return "index";

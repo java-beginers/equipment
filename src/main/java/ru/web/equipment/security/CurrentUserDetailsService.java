@@ -57,7 +57,7 @@ public class  CurrentUserDetailsService implements UserDetailsService {
         }
         User user = new User();
         user.setFullName("Администратор проекта");
-        user.setRole(UserRole.ROLE_USER);
+        user.setRole(UserRole.ROLE_ADMIN);
         user.setLogin(login);
         user.setPasswordHash(passwordEncoder.encode(password));
         user.setEnabled(true);

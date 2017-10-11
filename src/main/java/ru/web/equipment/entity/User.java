@@ -37,6 +37,8 @@ public class User implements Serializable {
     @Column(name = "usr_pwdchange_date", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date pwdchangedate;
+    @Column(name = "usr_pwdneedchange", nullable = false)
+    private boolean pwdneedchange;
 
     public void checkPasswordExpired(int daysCount) {
         if (pwdchangedate != null) {
@@ -127,4 +129,14 @@ public class User implements Serializable {
     public void setPwdchangedate(Date pwdchangedate) {
         this.pwdchangedate = pwdchangedate;
     }
+
+    public boolean isPwdneedchange () {
+        return pwdneedchange;
+    }
+
+    public void setPwdneedchange(boolean pwdneedchange) {
+        this.pwdneedchange = pwdneedchange;
+    }
 }
+
+

@@ -6,6 +6,55 @@
 <body>
 <div th:replace="fragments/header :: menu" />
 <h1>Редактирование пользователя</h1>
-<p>Тут надо сделать форму редактирования пользователя.</p>
+<form action="#" th:action="@{save}" th:object="${user}" method="post">
+    <div class="form">
+        <div class="errorMessage" th:if="${validationError}" th:text="${errorText}">
+            Тут будет текст ошибки
+        </div>
+        <div>
+            <p>
+                <label for="login">Логин</label><br/>
+                <input class="form" type="text" th:field="*{login}" id="login" name="login"/>
+            </p>
+            <p>
+                <label for="password">Пароль</label><br/>
+                <input class="form" type="text" th:field="*{passwordHash}" id="password" name="password"/>
+            </p>
+            <p>
+                <label for="fullname">Ф.И.О.</label><br/>
+                <input class="form" type="text" th:field="*{fullName}" id="fullname" name="fullname"/>
+            </p>
+            <p>
+                <label for="phone">Телефон</label><br/>
+                <input class="form" type="text" th:field="*{phone}" id="phone" name="phone"/>
+            </p>
+            <p>
+                <label for="email">Почта</label><br/>
+                <input class="form" type="text" th:field="*{email}" id="email" name="email"/>
+            </p>
+            <p>
+                <label for="role">Роль</label><br/>
+                <select th:field="*{role}" id="role" name="role">
+                    <option th:each="rls : ${allRoles}"
+                            th:value="${rls}"
+                            th:text="${rls.description}">role name</option>
+                </select>
+            </p>
+            <p>
+                <label for="expired">Заблокировано</label><br/>
+                <input type="checkbox" th:field="*{expired}" id="expired" name="expired"/>
+            </p>
+            <p>
+                <label for="pwdneedchange">Сменить пароль</label><br/>
+                <input type="checkbox" th:field="*{pwdneedchange}" id="pwdneedchange" name="pwdneedchange"/>
+            </p>
+            <input type="hidden" th:field="*{id}"/>
+        </div>
+        <div class="buttons">
+            <input type="submit" value="Сохранить"/>
+            <a class="button" href="#" th:href="@{/equipment/list}">Отменить</a>
+        </div>
+    </div>
+</form>
 </body>
 </html>

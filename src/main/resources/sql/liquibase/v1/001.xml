@@ -124,4 +124,13 @@
         </sql>
     </changeSet>
 
+    <changeSet id="001-8" author="equipment">
+        <comment>
+            Добавляем поле для пометки необходимости смены пароля
+        </comment>
+        <sql>
+            ALTER TABLE users ADD usr_pwdneedchange boolean NOT NULL;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

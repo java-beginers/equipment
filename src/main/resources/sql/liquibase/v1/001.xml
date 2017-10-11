@@ -133,4 +133,12 @@
         </sql>
     </changeSet>
 
+    <changeSet id="001-9" author="equipment">
+        <comment>
+            Добавляем поле для пометки необходимости смены пароля
+        </comment>
+        <sql>
+            ALTER TABLE users DROP usr_pwdneedchange;
+        </sql>
+    </changeSet>
 </databaseChangeLog>

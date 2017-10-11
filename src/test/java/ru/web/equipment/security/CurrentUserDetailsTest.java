@@ -128,7 +128,7 @@ public class CurrentUserDetailsTest {
         user.setLogin(login);
         user.setPasswordHash(password);
         user.setEnabled(enabled);
-        user.setPwdchangedate(passwordDate);
+        user.setPasswordChangeDate(passwordDate);
         return user;
     }
 }

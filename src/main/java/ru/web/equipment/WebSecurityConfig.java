@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import ru.web.equipment.security.CustomAuthenticationFailureHandler;
 
 /**
  * Настройки кофигурации безопастности приложения
@@ -22,11 +23,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/static/**", "/").permitAll()
+				.antMatchers("/static/**", "/", "/changePassword*", "/changepassword*").permitAll()
 				.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
 				.antMatchers("/**").authenticated()
-				.and().formLogin().loginPage("/login").failureUrl("/loginError").defaultSuccessUrl("/index").permitAll()
-				.and().logout().logoutSuccessUrl("/index").permitAll()
+				.and()
+				.formLogin().loginPage("/login").failureHandler(new CustomAuthenticationFailureHandler()).defaultSuccessUrl("/index").permitAll()
+				.and()
+				.logout().logoutUrl("/logout").logoutSuccessUrl("/index").invalidateHttpSession(true).permitAll()
 				.and().csrf().disable();
 		http.headers().frameOptions().disable();
 	}

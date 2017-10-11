@@ -24,9 +24,9 @@ import java.util.Date;
 public class  CurrentUserDetailsService implements UserDetailsService {
     private static final Logger log = LoggerFactory.getLogger(CurrentUserDetailsService.class);
     private final static int DEFAULT_PASSWORD_AGE = 30; // срок жизни пароля по умолчанию.
-    public final static String PASSWORD_AGE = "password.max-age";
-    public final static String ADMIN_LOGIN = "admin.login";
-    public final static String ADMIN_PASSWORD = "admin.password";
+    final static String PASSWORD_AGE = "password.max-age";
+    final static String ADMIN_LOGIN = "admin.login";
+    final static String ADMIN_PASSWORD = "admin.password";
 
 
     private UserRepository userRepository;
@@ -61,7 +61,7 @@ public class  CurrentUserDetailsService implements UserDetailsService {
         user.setLogin(login);
         user.setPasswordHash(passwordEncoder.encode(password));
         user.setEnabled(true);
-        user.setPwdchangedate(new Date());
+        user.setPasswordChangeDate(new Date());
         return user;
     }
 

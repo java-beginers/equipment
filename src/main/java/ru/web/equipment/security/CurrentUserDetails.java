@@ -15,7 +15,7 @@ public class CurrentUserDetails implements UserDetails {
 
     private User user;
 
-    public CurrentUserDetails(User user, int passwordAge) {
+    CurrentUserDetails(User user, int passwordAge) {
         this.user = user;
         if (user != null) {
             user.checkPasswordExpired(passwordAge);
@@ -49,7 +49,8 @@ public class CurrentUserDetails implements UserDetails {
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return user != null && !user.isExpired();
+//        return user != null && !user.isExpired();
+        return false;
     }
 
     @Override
@@ -57,7 +58,7 @@ public class CurrentUserDetails implements UserDetails {
         return user != null && user.isEnabled();
     }
 
-    public User getUser() {
+    User getUser() {
         return user;
     }
 }

@@ -36,14 +36,12 @@ public class User implements Serializable {
     private boolean expired;
     @Column(name = "usr_pwdchange_date", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date pwdchangedate;
-    @Column(name = "usr_pwdneedchange", nullable = false)
-    private boolean pwdneedchange;
+    private Date passwordChangeDate;
 
     public void checkPasswordExpired(int daysCount) {
-        if (pwdchangedate != null) {
+        if (passwordChangeDate != null) {
             Calendar calendar = new GregorianCalendar();
-            calendar.setTime(pwdchangedate);
+            calendar.setTime(passwordChangeDate);
             calendar.add(Calendar.DAY_OF_MONTH, daysCount); // время действия пароля месяц
             Date expirationDate = calendar.getTime();
             expired = expirationDate.before(new Date());
@@ -122,20 +120,12 @@ public class User implements Serializable {
         this.expired = expired;
     }
 
-    public Date getPwdchangedate() {
-        return pwdchangedate;
+    public Date getPasswordChangeDate() {
+        return passwordChangeDate;
     }
 
-    public void setPwdchangedate(Date pwdchangedate) {
-        this.pwdchangedate = pwdchangedate;
-    }
-
-    public boolean isPwdneedchange () {
-        return pwdneedchange;
-    }
-
-    public void setPwdneedchange(boolean pwdneedchange) {
-        this.pwdneedchange = pwdneedchange;
+    public void setPasswordChangeDate(Date passwordChangeDate) {
+        this.passwordChangeDate = passwordChangeDate;
     }
 }
 

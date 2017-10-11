@@ -35,18 +35,18 @@
             <p>
                 <label for="role">Роль</label><br/>
                 <select th:field="*{role}" id="role" name="role">
-                    <option th:each="rls : ${allRoles}"
-                            th:value="${rls}"
-                            th:text="${rls.description}">role name</option>
+                    <option th:each="rol : ${allRoles}"
+                            th:value="${rol}"
+                            th:text="${rol.description}">role name</option>
                 </select>
             </p>
             <p>
-                <label for="expired">Заблокировано</label><br/>
-                <input type="checkbox" th:field="*{expired}" id="expired" name="expired"/>
+                <input type="checkbox" th:field="*{enabled}" id="enabled" name="enabled"/>
+                <label for="enabled">Пользователь активен</label><br/>
             </p>
             <p>
-                <label for="pwdneedchange">Сменить пароль</label><br/>
-                <input type="checkbox" th:field="*{pwdneedchange}" id="pwdneedchange" name="pwdneedchange"/>
+                <input type="checkbox" th:field="*{expired}" id="expired" name="expired"/>
+                <label for="expired">Сменить пароль</label><br/>
             </p>
             <input type="hidden" th:field="*{id}"/>
         </div>

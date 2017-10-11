@@ -49,8 +49,7 @@ public class CurrentUserDetails implements UserDetails {
 
     @Override
     public boolean isCredentialsNonExpired() {
-//        return user != null && !user.isExpired();
-        return false;
+        return user != null && !user.isExpired();
     }
 
     @Override

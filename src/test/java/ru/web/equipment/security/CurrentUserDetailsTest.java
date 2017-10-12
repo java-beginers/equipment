@@ -47,6 +47,27 @@ public class CurrentUserDetailsTest {
 
 
     @Test
+    public void testEnabledAndExpiredUserWillBeExpired() throws Exception {
+        // Проверяем то, что если пользователь уже объявлен как просроченный - он останется таковым и метод не
+        // изменит флаг просрочки на основании даты.
+        User validUser = getUser(VALID_USER_NAME, UserRole.ROLE_ADMIN, VALID_USER_LOGIN, VALID_USER_PASSWORD, true, new Date());
+        validUser.setExpired(true);
+        CurrentUserDetails userDetails = new CurrentUserDetails(validUser, PASSWORD_AGE);
+        assertTrue(userDetails.isEnabled());
+        assertFalse(userDetails.isCredentialsNonExpired());
+        assertFalse(userDetails.isAccountNonExpired());
+        assertTrue(userDetails.isAccountNonLocked());
+        assertEquals(VALID_USER_NAME, userDetails.getUsername());
+        assertEquals(VALID_USER_PASSWORD, userDetails.getPassword());
+        Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
+        assertNotNull(authorities);
+        assertFalse(authorities.isEmpty());
+        assertFalse(authorities.contains(UserRole.ROLE_USER));
+        assertTrue(authorities.contains(UserRole.ROLE_ADMIN));
+    }
+
+
+    @Test
     public void testEnabledAndExpiredUser() throws Exception {
         User validUser = getUser(VALID_USER_NAME, UserRole.ROLE_USER, VALID_USER_LOGIN, VALID_USER_PASSWORD, true, TestUtils.getDateFromString("01.01.1970"));
         CurrentUserDetails userDetails = new CurrentUserDetails(validUser, PASSWORD_AGE);

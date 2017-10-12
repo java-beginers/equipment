@@ -44,7 +44,7 @@ public class User implements Serializable {
             calendar.setTime(passwordChangeDate);
             calendar.add(Calendar.DAY_OF_MONTH, daysCount); // время действия пароля месяц
             Date expirationDate = calendar.getTime();
-            expired = expirationDate.before(new Date());
+            expired = expirationDate.before(new Date()) || expired;
         }
     }
 

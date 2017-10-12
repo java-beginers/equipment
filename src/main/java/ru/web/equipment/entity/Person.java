@@ -33,6 +33,10 @@ public class Person implements Serializable {
         return String.format("%s%s%s", fname, getInitial(mname), getInitial(lname));
     }
 
+    public String getFullName() {
+        return String.format("%s%s%s", fname, getNameWithSpace(mname), getNameWithSpace(lname));
+    }
+
     public long getId() {
         return id;
     }
@@ -89,13 +93,13 @@ public class Person implements Serializable {
         this.description = description;
     }
 
-    public String getFullName() {
-        return fname + ' ' + mname + ' ' + lname;
-    }
-
     // Получаем первый символ в верхнем регистре. После символа - точка, перед символом - пробел.
     // Это сделано для того, чтобы при форматировании не появлялись лишние пробелы, например, при отсутствии отчества.
     private String getInitial(String name) {
         return StringUtils.isBlank(name) ? "" : " " + name.trim().substring(0, 1).toUpperCase() + ".";
+    }
+
+    private String getNameWithSpace(String name) {
+        return StringUtils.isBlank(name) ? "" : " " + name.trim();
     }
 }

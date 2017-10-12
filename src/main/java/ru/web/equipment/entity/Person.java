@@ -1,5 +1,7 @@
 package ru.web.equipment.entity;
 
+import org.apache.commons.lang3.StringUtils;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -26,6 +28,10 @@ public class Person implements Serializable {
     private String mail;
     @Column(name = "psn_description", length = 1024)
     private String description;
+
+    public String getShortName() {
+        return String.format("%s%s%s", fname, getInitial(mname), getInitial(lname));
+    }
 
     public long getId() {
         return id;
@@ -85,5 +91,11 @@ public class Person implements Serializable {
 
     public String getFullName() {
         return fname + ' ' + mname + ' ' + lname;
+    }
+
+    // Получаем первый символ в верхнем регистре. После символа - точка, перед символом - пробел.
+    // Это сделано для того, чтобы при форматировании не появлялись лишние пробелы, например, при отсутствии отчества.
+    private String getInitial(String name) {
+        return StringUtils.isBlank(name) ? "" : " " + name.trim().substring(0, 1).toUpperCase() + ".";
     }
 }

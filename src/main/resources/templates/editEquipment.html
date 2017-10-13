@@ -45,6 +45,14 @@
                 <input type="checkbox" th:field="*{damaged}" id="damaged" name="damaged"/>
             </p>
             <p>
+                <label for="person">Ваделец</label><br/>
+                <select th:field="*{personCode}" id="person" name="person">
+                    <option th:each="psn : ${allPersons}"
+                            th:value="${psn.id}"
+                            th:text="${psn.shortName}">short person name</option>
+                </select>
+            </p>
+            <p>
                 <label for="description">Описание</label><br/>
                 <input class="form" type="text" th:field="*{description}" id="description" name="description"/>
             </p>

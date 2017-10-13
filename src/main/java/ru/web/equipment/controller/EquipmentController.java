@@ -8,9 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.web.equipment.entity.Category;
 import ru.web.equipment.entity.Equipment;
+import ru.web.equipment.entity.Person;
 import ru.web.equipment.entity.Vendor;
 import ru.web.equipment.repository.CategoriesRepository;
 import ru.web.equipment.repository.EquipmentsRepository;
+import ru.web.equipment.repository.PersonsRepository;
 import ru.web.equipment.repository.VendorsRepository;
 
 /**
@@ -24,6 +26,7 @@ public class EquipmentController {
     private EquipmentsRepository equipmentsRepository;
     private CategoriesRepository categoriesRepository;
     private VendorsRepository vendorsRepository;
+    private PersonsRepository personsRepository;
 
     @GetMapping("list")
     public String getEquipmentsList(Model model) {
@@ -37,9 +40,11 @@ public class EquipmentController {
     public String newEquipment(Model model) {
         Iterable<Category> categories = categoriesRepository.findAll();
         Iterable<Vendor> vendors = vendorsRepository.findAll();
+        Iterable<Person> persons = personsRepository.findAll();
         model.addAttribute("equipment", new Equipment());
         model.addAttribute("allCategories", categories);
         model.addAttribute("allVendors", vendors);
+        model.addAttribute("allPersons", persons);
         return "editEquipment";
     }
 
@@ -51,6 +56,7 @@ public class EquipmentController {
             try {
                 equipment.setCategory(fetchCategory(equipment.getCategoryCode()));
                 equipment.setVendor(fetchVendor(equipment.getVendorCode()));
+                equipment.setPerson(fetchPerson(equipment.getPersonCode()));
                 equipmentsRepository.save(equipment);
             } catch (Exception e) {
                 log.error("Ошибка при сохранении оборудования.", e);
@@ -69,8 +75,10 @@ public class EquipmentController {
                 if (equipment != null) {
                     Iterable<Category> categories = categoriesRepository.findAll();
                     Iterable<Vendor> vendors = vendorsRepository.findAll();
+                    Iterable<Person> persons = personsRepository.findAll();
                     model.addAttribute("allCategories", categories);
                     model.addAttribute("allVendors", vendors);
+                    model.addAttribute("allPersons", persons);
                     model.addAttribute("equipment", equipment);
                     return "editEquipment";
                 }
@@ -114,6 +122,10 @@ public class EquipmentController {
         return vendorCode == 0 ? null : vendorsRepository.findOne(vendorCode);
     }
 
+    private Person fetchPerson(long personCode) {
+        return personCode == 0 ? null : personsRepository.findOne(personCode);
+    }
+
     @Autowired
     public void setEquipmentsRepository(EquipmentsRepository equipmentsRepository) {
         this.equipmentsRepository = equipmentsRepository;
@@ -127,5 +139,10 @@ public class EquipmentController {
     @Autowired
     public void setVendorsRepository(VendorsRepository vendorsRepository) {
         this.vendorsRepository = vendorsRepository;
+    }
+
+    @Autowired
+    public void setPersonsRepository(PersonsRepository personsRepository) {
+        this.personsRepository = personsRepository;
     }
 }

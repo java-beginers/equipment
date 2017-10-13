@@ -24,6 +24,11 @@ public class Equipment implements Serializable {
     private Vendor vendor;
     @Transient
     private long vendorCode;
+    @ManyToOne
+    @JoinColumn(name = "eqp_psncode",  nullable = false)
+    private Person person;
+    @Transient
+    private long personCode;
     @Column(name = "eqp_model", length = 255)
     private String model;
     @Column(name = "eqp_serial", length = 50)
@@ -39,7 +44,9 @@ public class Equipment implements Serializable {
     private void updateCodes() {
         vendorCode = vendor == null ? 0 : vendor.getId();
         categoryCode = category == null ? 0 : category.getId();
+        personCode = person == null ? 0 : person.getId();
     }
+
 
     public long getId() {
         return id;
@@ -63,6 +70,14 @@ public class Equipment implements Serializable {
 
     public void setVendor(Vendor vendor) {
         this.vendor = vendor;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
     public String getModel() {
@@ -111,6 +126,14 @@ public class Equipment implements Serializable {
 
     public void setVendorCode(long vendorCode) {
         this.vendorCode = vendorCode;
+    }
+
+    public long getPersonCode() {
+        return personCode;
+    }
+
+    public void setPersonCode(long personCode) {
+        this.personCode = personCode;
     }
 
     public boolean isDamaged() {

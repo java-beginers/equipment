@@ -18,7 +18,9 @@
         </div>
     </div>
     <div class="itemBody">
-        <p th:text="${psn.phone} + ' ' + ${psn.mail} + ' ' + ${psn.description}"></p>
+        <p th:text=" 'Телефон: ' + ${psn.phone}"></p>
+        <p th:text=" 'Почта: ' + ${psn.mail}"></p>
+        <p th:text=" 'Описание: ' + ${psn.description}"></p>
     </div>
 </div>
 <div class="buttons">

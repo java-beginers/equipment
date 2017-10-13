@@ -135,10 +135,32 @@
 
     <changeSet id="001-9" author="equipment">
         <comment>
-            Добавляем поле для пометки необходимости смены пароля
+            Удаляем поле для пометки необходимости смены пароля за ненадобностью
         </comment>
         <sql>
             ALTER TABLE users DROP usr_pwdneedchange;
         </sql>
     </changeSet>
+
+    <changeSet id="001-10" author="equipment">
+        <comment>
+            Добавляем в таблицу оборудование поле Владельцы
+        </comment>
+        <sql>
+            ALTER TABLE equipments ADD eqp_psncode int;
+        </sql>
+    </changeSet>
+
+    <changeSet id="001-11" author="equipment">
+        <comment>
+            Создаем вторичный ключ для поля владельцы со ссылкой на сущность персоны
+        </comment>
+        <sql>
+            ALTER TABLE equipments ADD CONSTRAINT equipments_psn_fk
+                    FOREIGN KEY(eqp_psncode)
+                        REFERENCES persons(psn_pcode);
+        </sql>
+    </changeSet>
+
+
 </databaseChangeLog>

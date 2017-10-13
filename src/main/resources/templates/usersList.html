@@ -18,12 +18,12 @@
         </div>
     </div>
     <div class="itemBody">
-        <p th:text=" 'ФИО: ' + ${usr.fullName}"></p>
-        <p th:text=" 'Телефон: ' + ${usr.phone}"></p>
-        <p th:text=" 'E-mail ' + ${usr.email}"></p>
-        <p th:text=" 'Роль: ' + ${usr.role.description}"></p>
-        <p th:text=" 'Блокирование: ' + ${usr.enabled}"></p>
-        <p th:text=" 'Просрочен пароль: ' + ${usr.expired}"></p>
+        <p><b>ФИО:</b> <span th:text="${usr.fullName}">Иванов Иван Иванович</span></p>
+        <p><b>Телефон:</b> <span th:text="${usr.phone}">8 800 2000 700</span></p>
+        <p><b>E-mail:</b> <span th:text="${usr.email}">angryivan@mail.ru</span></p>
+        <p><b>Роль:</b> <span th:text="${usr.role.description}">Директор черного моря</span></p>
+        <p class="error" th:if="${!usr.enabled}" th:text="Пользователь отключен"></p>
+        <p class="error" th:if="${usr.expired}" th:text="Пароль пользователя просрочен"></p>
     </div>
 </div>
 <div class="buttons">

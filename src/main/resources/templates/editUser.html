@@ -8,29 +8,29 @@
 <h1>Редактирование пользователя</h1>
 <form action="#" th:action="@{save}" th:object="${user}" method="post">
     <div class="form">
-        <div class="errorMessage" th:if="${validationError}" th:text="${errorText}">
+        <div class="errorMessage" th:if="${error}" th:text="${errorText}">
             Тут будет текст ошибки
         </div>
         <div>
             <p>
                 <label for="login">Логин</label><br/>
                 <input class="form" type="text" th:field="*{login}" id="login" name="login"/>
+                <span class="error" th:if="${#fields.hasErrors('login')}" th:errors="*{login}">Ошибка значения поля</span>
             </p>
             <p>
-                <label for="password">Пароль</label><br/>
-                <input class="form" type="text" th:field="*{passwordHash}" id="password" name="password"/>
-            </p>
-            <p>
-                <label for="fullname">Ф.И.О.</label><br/>
+                <label for="fullname">Фамилия Имя Отчество</label><br/>
                 <input class="form" type="text" th:field="*{fullName}" id="fullname" name="fullname"/>
+                <span class="error" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Ошибка значения поля</span>
             </p>
             <p>
                 <label for="phone">Телефон</label><br/>
                 <input class="form" type="text" th:field="*{phone}" id="phone" name="phone"/>
+                <span class="error" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Ошибка значения поля</span>
             </p>
             <p>
                 <label for="email">Почта</label><br/>
                 <input class="form" type="text" th:field="*{email}" id="email" name="email"/>
+                <span class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Ошибка значения поля</span>
             </p>
             <p>
                 <label for="role">Роль</label><br/>
@@ -44,6 +44,16 @@
                 <input type="checkbox" th:field="*{enabled}" id="enabled" name="enabled"/>
                 <label for="enabled">Пользователь активен</label><br/>
             </p>
+            <p th:if="*{newUser}">
+                <label for="password">Пароль</label><br/>
+                <input class="form" type="password" th:field="*{password}" id="password" name="password"/>
+                <span class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Ошибка значения поля</span>
+            </p>
+            <p th:if="*{newUser}">
+                <label for="confirm">Подтверждение</label><br/>
+                <input class="form" type="password" th:field="*{confirm}" id="confirm" name="confirm"/>
+                <span class="error" th:if="${#fields.hasErrors('confirm')}" th:errors="*{confirm}">Ошибка значения поля</span>
+            </p>
             <p>
                 <input type="checkbox" th:field="*{expired}" id="expired" name="expired"/>
                 <label for="expired">Сменить пароль</label><br/>
@@ -52,7 +62,7 @@
         </div>
         <div class="buttons">
             <input type="submit" value="Сохранить"/>
-            <a class="button" href="#" th:href="@{/equipment/list}">Отменить</a>
+            <a class="button" href="#" th:href="@{/admin/users/list}">Отменить</a>
         </div>
     </div>
 </form>

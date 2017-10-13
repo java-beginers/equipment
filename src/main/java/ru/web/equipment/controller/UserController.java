@@ -3,13 +3,17 @@ package ru.web.equipment.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.web.equipment.entity.User;
 import ru.web.equipment.entity.UserRole;
 import ru.web.equipment.repository.UserRepository;
 
+import javax.validation.Valid;
 import java.util.Date;
 
 /**
@@ -21,6 +25,7 @@ public class UserController {
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
     private static final String REDIRECT_TO_LIST = "redirect:/admin/users/list";
     private UserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
 
 
     @GetMapping("list")
@@ -44,8 +49,26 @@ public class UserController {
 
 
     @PostMapping("save")
-    public String saveUser(@ModelAttribute User user) {
+    public String saveUser(final ModelMap model, @Valid @ModelAttribute("user") User user, final BindingResult result) {
+
+        model.addAttribute("user", user);
+        model.addAttribute("allRoles", UserRole.values());
+        // Если у нас ошмбкм валидации, то возвращаемся к форме редактирования.
+        if (result.hasErrors()) {
+            return "editUser";
+        }
         if (user != null) {
+            // Если пользователь новый, то мы запрашивали пароль и подтверждение. Засетим шифрованный пароль
+            if (user.isNewUser()) {
+                if (user.isPasswordMatchesConfirm()) {
+                    // Если пароль и подтверждение совпадают. Сохраняем.
+                    user.setPasswordHash(passwordEncoder.encode(user.getPassword()));
+                } else {
+                    model.addAttribute("error", true);
+                    model.addAttribute("errorText", "Новый пароль не совпадает с подтверждением!");
+                    return "editUser";
+                }
+            }
             user.setPasswordChangeDate(new Date());
             userRepository.save(user);
         }
@@ -90,5 +113,11 @@ public class UserController {
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+
+    @Autowired
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
     }
 }

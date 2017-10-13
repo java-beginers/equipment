@@ -1,6 +1,11 @@
 package ru.web.equipment.entity;
 
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
@@ -17,27 +22,54 @@ public class User implements Serializable {
     @Column(name = "usr_pcode")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @NotBlank(message = "Необходимо указать значение")
     @Column(name = "usr_login", unique = true, nullable = false, length = 50)
     private String login;
+
     @Column(name = "usr_password", nullable = false)
     private String passwordHash;
+
+    @Transient
+    @NotBlank(message = "Необходимо указать значение")
+    @Size(min = 6, message = "Пароль должен быть не менее 6 символов")
+    private String password;
+
+    @Transient
+    @NotBlank(message = "Необходимо указать значение")
+    @Size(min = 6, message = "Подтверждение должно быть не менее 6 символов")
+    private String confirm;
+
+    @NotBlank(message = "Необходимо указать значение")
     @Column(name = "usr_fullname", nullable = false, length = 128)
     private String fullName;
+
+    @NotBlank(message = "Необходимо указать значение")
     @Column(name = "usr_phone", nullable = false, length = 128)
     private String phone;
+
+    @Email(message = "Недопустимый формат адреса электронной почты")
     @Column(name = "usr_email", nullable = false)
     private String email;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "usr_role", nullable = false, length = 50)
     private UserRole role = UserRole.ROLE_USER;
+
     @Column(name = "usr_enabled", nullable = false)
     private boolean enabled;
+
     @Column(name = "usr_expired", nullable = false)
     private boolean expired;
+
     @Column(name = "usr_pwdchange_date", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date passwordChangeDate;
 
+    /**
+     * Проверяет, не просрочен ли пароль. Проверка выполняется на основе даты последней смены пароля.
+     * @param daysCount Срок годности пароля в днях.
+     */
     public void checkPasswordExpired(int daysCount) {
         if (passwordChangeDate != null) {
             Calendar calendar = new GregorianCalendar();
@@ -46,6 +78,22 @@ public class User implements Serializable {
             Date expirationDate = calendar.getTime();
             expired = expirationDate.before(new Date()) || expired;
         }
+    }
+
+    /**
+     * Проверяет соответствие пароля и подтверждения
+     * @return {@code true} если пароль и подтверждение совпадают. Иначе - {@code false}
+     */
+    public boolean isPasswordMatchesConfirm() {
+        return StringUtils.equals(password, confirm);
+    }
+
+    /**
+     * Признак того, что это новый пользователь
+     * @return
+     */
+    public boolean isNewUser() {
+        return id == 0;
     }
 
     public long getId() {
@@ -126,6 +174,22 @@ public class User implements Serializable {
 
     public void setPasswordChangeDate(Date passwordChangeDate) {
         this.passwordChangeDate = passwordChangeDate;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getConfirm() {
+        return confirm;
+    }
+
+    public void setConfirm(String confirm) {
+        this.confirm = confirm;
     }
 }
 

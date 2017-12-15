@@ -134,5 +134,4 @@ public class RepositoriesIT {
             equipmentsRepository.delete(record);
         }
     }
-
 }

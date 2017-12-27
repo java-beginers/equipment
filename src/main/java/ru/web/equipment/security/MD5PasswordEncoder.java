@@ -11,13 +11,14 @@ import java.security.NoSuchAlgorithmException;
  * Класс для шифрования пароля в "Соленый" MD5 хэш
  */
 public class MD5PasswordEncoder implements Serializable, PasswordEncoder {
-    private final static String salt = "123qweasdgfdtre@#$%^*&&HJKJH@#HFHGF$%^%$GJHVBNJdghjfu";
+    private final static String SALT = "123qweasdgfdtre@#$%^*&&HJKJH@#HFHGF$%^%$GJHVBNJdghjfu";
 
     @Override
     public String encode(CharSequence rawPassword) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] hash = md.digest(rawPassword.toString().getBytes());
+            String saltPassword = SALT + rawPassword.toString();
+            byte[] hash = md.digest(saltPassword.getBytes());
             StringBuilder builder = new StringBuilder();
             for (byte b : hash) {
                 builder.append(String.format("%02x", b & 0xFF));

@@ -20,8 +20,9 @@
     <div class="itemBody">
         <p th:text=" 'Тип: ' + ${eqp.category.name}"></p>
         <p th:text=" 'Производитель: ' + ${eqp.vendor.name}"></p>
+        <p th:text=" 'Модель: ' + ${eqp.model}"></p>
         <p th:text=" 'Серийный №: ' + ${eqp.serial}"></p>
-        <p th:text=" 'Исправно: ' + ${eqp.damaged}"></p>
+        <p th:text=" 'Исправно: ' + ${eqp.equipmentDamaged}"></p>
         <p th:text=" 'Владелец: ' + ${eqp.person.shortName}"></p>
         <p th:text=" 'Описание: ' + ${eqp.description}"></p>
     </div>

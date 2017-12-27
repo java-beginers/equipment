@@ -1,5 +1,7 @@
 package ru.web.equipment.entity;
 
+import ru.web.equipment.utils.StringUtils;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -142,5 +144,9 @@ public class Equipment implements Serializable {
 
     public void setDamaged(boolean damaged) {
         this.damaged = damaged;
+    }
+
+    public String getEquipmentDamaged() {
+        return StringUtils.getStringFromBoolean(damaged);
     }
 }

@@ -1,13 +1,16 @@
-package ru.web.equipment.repository;
+package ru.web.equipment.integration;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import ru.web.equipment.entity.Category;
 import ru.web.equipment.entity.Equipment;
 import ru.web.equipment.entity.Vendor;
+import ru.web.equipment.repository.CategoriesRepository;
+import ru.web.equipment.repository.EquipmentsRepository;
+import ru.web.equipment.repository.VendorsRepository;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -20,9 +23,9 @@ import static org.junit.Assert.assertNotNull;
  * с удаления всех записей. Это поможет ликвидировать последствия упавших ранее тестов, когда запись была добавлена,
  * но не удалена.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
 @SpringBootTest
-public class RepositoriesIT {
+public class RepositoriesTest {
     @Autowired
     private CategoriesRepository categoriesRepository;
     @Autowired
@@ -134,5 +137,4 @@ public class RepositoriesIT {
             equipmentsRepository.delete(record);
         }
     }
-
 }

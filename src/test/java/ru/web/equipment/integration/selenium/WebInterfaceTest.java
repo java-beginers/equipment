@@ -34,20 +34,11 @@ public class WebInterfaceTest {
         page = new PageHelper(driver, baseAddress);
     }
 
-
-    /**
-     * Отображает индексную страницу и проверяет, что заголовок страницы соответствует ожидаемому
-     */
     @Test
     public void testIndexPageTitle() {
         assertEquals("Заголовок страницы не соответствует ожидаемому", "Equipment", page.getPageTitle());
     }
 
-
-    /**
-     * Воспроизводит сценарий вводалогина и пароля и проверяет, что пользователь вошел как администратор
-     * @throws Exception
-     */
     @Test
     public void testSuccessLogin() throws Exception {
         page.findLinkByText("пройти авторизацию").click();
@@ -60,5 +51,32 @@ public class WebInterfaceTest {
         // Появилась информация о пользователе в верхней части экрана.
         assertEquals("Вы вошли как: Администратор проекта", page.findElementByClass("userInfo").getText());
     }
+
+    @Test
+    public void testLoginWithInvalidLogin() throws Exception {
+        page.findLinkByText("пройти авторизацию").click();
+        page.waitInSeconds(ONE_SECOND);
+        // Появилась форма ввода логина и пароля Ищем поля и кнопку и иммитируем заполнение данных.
+        page.getInputFieldById("username").sendKeys("blabla");
+        page.getInputFieldById("password").sendKeys("adminpwd");
+        page.getSubmitButton().click();
+        page.waitInSeconds(ONE_SECOND);
+        // Ошибка входа должна появиться надпись
+        assertEquals("Неправильное имя пользователя или пароль", page.findElementByClass("errorMessage").getText());
+    }
+
+    @Test
+    public void testLoginWithInvalidPassword() throws Exception {
+        page.findLinkByText("пройти авторизацию").click();
+        page.waitInSeconds(ONE_SECOND);
+        // Появилась форма ввода логина и пароля Ищем поля и кнопку и иммитируем заполнение данных.
+        page.getInputFieldById("username").sendKeys("admin");
+        page.getInputFieldById("password").sendKeys("blablabla");
+        page.getSubmitButton().click();
+        page.waitInSeconds(ONE_SECOND);
+        // Ошибка входа должна появиться надпись
+        assertEquals("Неправильное имя пользователя или пароль", page.findElementByClass("errorMessage").getText());
+    }
+
 
 }

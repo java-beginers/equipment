@@ -1,4 +1,4 @@
-package ru.web.equipment.integration.selenium.helpers;
+package ru.web.equipment.integration.selenium.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -10,18 +10,26 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * Класс-помощник для работы со страницей.
+ * Абстрактный класс от которого будут наследоваться страницы.
  */
-public class PageHelper {
+public abstract class AbstractPage {
+    private static final int ONE_SECOND = 1;
+    private static final String BASE_URL = "http://localhost:%d%s";
+
     private WebDriver driver;
     private WebDriverWait driverWait;
-    private int waitInterval = Integer.getInteger("baseDelayInSeconds", 5);
+    private int serverPort;
+    private int waitInterval = Integer.getInteger("baseDelayInSeconds", ONE_SECOND);
 
-    public PageHelper(WebDriver driver, String pageUrl) {
+    AbstractPage(WebDriver driver, int serverPort, String pageUrl) {
         this.driver = driver;
+        this.serverPort = serverPort;
         driverWait = new WebDriverWait(driver, waitInterval);
-        this.driver.get(pageUrl);
+        driver.get(String.format(BASE_URL, serverPort, pageUrl));
+        waitSecond();
     }
+
+    public abstract boolean isCorrectPage();
 
     public String getPageTitle() {
         return driver.getTitle();
@@ -35,7 +43,11 @@ public class PageHelper {
         return findAndAssertElement(By.linkText(text));
     }
 
-    public void waitInSeconds(int numberOfSeconds) {
+    public void waitSecond() {
+        driverWait.withTimeout(waitInterval, TimeUnit.SECONDS);
+    }
+
+    public void waitSecond(int numberOfSeconds) {
         driverWait.withTimeout((numberOfSeconds <= 0) ? waitInterval : numberOfSeconds, TimeUnit.SECONDS);
     }
 
@@ -43,12 +55,25 @@ public class PageHelper {
         return getElementByXpath(".//input[@id='" + id + "']");
     }
 
+    public String getPageHeader() {
+        return getElementByXpath(".//h1").getText();
+    }
+
+
     public WebElement getSubmitButton() {
         return getElementByXpath(".//input[@type='submit']");
     }
 
-    public WebElement getSubmitButtonWithCaption(String caption) {
+    public WebElement getSubmitButton(String caption) {
         return getElementByXpath(".//input[@type='submit' and @value='" + caption + "']");
+    }
+
+    public WebDriver getDriver() {
+        return driver;
+    }
+
+    public int getServerPort() {
+        return serverPort;
     }
 
     private WebElement getElementByXpath(String selector) {

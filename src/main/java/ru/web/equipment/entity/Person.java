@@ -1,6 +1,6 @@
 package ru.web.equipment.entity;
 
-import org.apache.commons.lang3.StringUtils;
+import ru.web.equipment.utils.StringUtils;
 
 import javax.persistence.*;
 import java.io.Serializable;

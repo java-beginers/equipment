@@ -1,6 +1,5 @@
 package ru.web.equipment.controller;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ import ru.web.equipment.entity.User;
 import ru.web.equipment.model.ChangePasswordModel;
 import ru.web.equipment.repository.UserRepository;
 import ru.web.equipment.security.SecurityUtils;
+import ru.web.equipment.utils.StringUtils;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;

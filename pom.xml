@@ -9,10 +9,9 @@
     <version>1.0</version>
 
     <parent>
-        <!-- Your own application should inherit from spring-boot-starter-parent -->
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.3.RELEASE</version>
+        <version>1.5.15.RELEASE</version>
     </parent>
     <properties>
         <java.version>1.8</java.version>
@@ -104,13 +103,20 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-firefox-driver</artifactId>
+            <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-chrome-driver</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
@@ -148,7 +154,7 @@
                         </goals>
                         <configuration>
                             <includes>
-                                <include>**/integration/**/*.java</include>
+                                <include>**/integration/**/*TestSuite.java</include>
                             </includes>
                         </configuration>
                     </execution>
@@ -160,7 +166,6 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
     </build>
 </project>

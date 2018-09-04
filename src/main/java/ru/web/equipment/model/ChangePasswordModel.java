@@ -1,7 +1,7 @@
 package ru.web.equipment.model;
 
-import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.NotBlank;
+import ru.web.equipment.utils.StringUtils;
 
 import javax.validation.constraints.Size;
 

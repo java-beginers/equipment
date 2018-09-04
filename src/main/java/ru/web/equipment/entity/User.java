@@ -1,8 +1,8 @@
 package ru.web.equipment.entity;
 
-import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import ru.web.equipment.utils.StringUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;

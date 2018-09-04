@@ -1,7 +1,7 @@
 package ru.web.equipment.security;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import ru.web.equipment.utils.StringUtils;
 
 import java.io.Serializable;
 import java.security.MessageDigest;

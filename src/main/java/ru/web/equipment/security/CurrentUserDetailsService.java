@@ -53,7 +53,7 @@ public class  CurrentUserDetailsService implements UserDetailsService {
         String login = getLogin();
         String password = getPassword();
         if (!StringUtils.equals(userName, login) || StringUtils.isBlank(password)) {
-            return null;
+            throw new UsernameNotFoundException(String.format("user %s not found!", userName));
         }
         User user = new User();
         user.setFullName("Администратор проекта");

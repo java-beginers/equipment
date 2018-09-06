@@ -24,28 +24,6 @@ public class SecurityUtils {
 
     public static boolean isAdmin() {
         User currentUser = getCurrentUser();
-        if (currentUser != null && UserRole.ROLE_ADMIN.equals(currentUser.getRole())) {
-            return true;
-        }
-        return false;
-    }
-
-    public static boolean sameUser(User user1, User user2) {
-        if (user1 == null || user2 == null) {
-            return false;
-        }
-        return user1.getId() == user2.getId();
-    }
-
-    public static boolean isCurrentUser(User user) {
-        return sameUser(getCurrentUser(), user);
-    }
-
-    public static boolean isUserInRole(UserRole role) {
-        User currentUser = getCurrentUser();
-        if (role != null && currentUser != null) {
-            return role.equals(currentUser.getRole());
-        }
-        return false;
+        return currentUser != null && UserRole.ROLE_ADMIN.equals(currentUser.getRole());
     }
 }

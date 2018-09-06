@@ -7,6 +7,7 @@ import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import ru.web.equipment.integration.selenium.pages.WebApplication;
 import ru.web.equipment.integration.selenium.pages.WebPageFactory;
@@ -15,6 +16,7 @@ import ru.web.equipment.utils.StringUtils;
 import java.net.URL;
 
 @Configuration
+@ComponentScan("ru.web.equipment.test.*")
 public class WebDriverConfiguration {
     private static final String BROWSER_KEY = "browser";
     private static final String HUB_URL = "http://localhost:4444/wd/hub";

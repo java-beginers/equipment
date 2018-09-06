@@ -10,9 +10,15 @@ import org.openqa.selenium.WebDriver;
  **/
 public class IndexPage extends AbstractPage {
     private static final String PAGE_URL = "/";
+    private static final String TEST_LOGIN_URL = "/testlogin/login/%s";
+
 
     IndexPage(WebDriver driver, int serverPort) {
         super(driver, serverPort, PAGE_URL);
+    }
+
+    IndexPage(WebDriver driver, int serverPort, String userName) {
+        super(driver, serverPort, String.format(TEST_LOGIN_URL, userName));
     }
 
     @Override

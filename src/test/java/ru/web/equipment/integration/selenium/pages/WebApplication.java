@@ -11,4 +11,6 @@ public interface WebApplication {
     LoginPage openLoginPage(int serverPort);
 
     IndexPage openIndexPage(int serverPort);
+
+    IndexPage openIndexPageAsUser(int serverPort, String userLogin);
 }

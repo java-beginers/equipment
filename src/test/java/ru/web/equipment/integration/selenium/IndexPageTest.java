@@ -49,4 +49,11 @@ public class IndexPageTest {
         LoginPage loginPage = page.clickLoginLink();
         assertTrue(loginPage.isCorrectPage());
     }
+
+    @Test
+    public void testLoggedAsAdmin() {
+        IndexPage loggedPage = site.openIndexPageAsUser(serverPort, "admin");
+        assertTrue(loggedPage.isCorrectPage());
+        assertTrue(loggedPage.isLoggedAs("Администратор проекта"));
+    }
 }

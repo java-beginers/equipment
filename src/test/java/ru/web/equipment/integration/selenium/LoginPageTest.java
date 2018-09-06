@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 public class LoginPageTest {
 
     @Autowired
-    private WebApplication application;
+    private WebApplication site;
 
     @LocalServerPort
     private int serverPort;
@@ -29,35 +29,35 @@ public class LoginPageTest {
 
     @Before
     public void prepare() {
-        page = application.openLoginPage(serverPort);
+        page = site.openLoginPage(serverPort);
     }
 
     @Test
-    public void testSuccessLogin() throws Exception {
+    public void testSuccessLogin() {
         page.doLogin("admin", "adminpwd");
         assertTrue(page.isLoggedAs("Администратор проекта"));
     }
 
     @Test
-    public void testLoginWithInvalidLogin() throws Exception {
+    public void testLoginWithInvalidLogin() {
         page.doLogin("blabla", "adminpwd");
         assertTrue(page.isLoginError());
     }
 
     @Test
-    public void testLoginWithInvalidPassword() throws Exception {
+    public void testLoginWithInvalidPassword() {
         page.doLogin("admin", "blablabla");
         assertTrue(page.isLoginError());
     }
 
     @Test
-    public void testLoginWithEmptyName() throws Exception {
+    public void testLoginWithEmptyName() {
         page.doLogin("", "blablabla");
         assertTrue(page.isLoginError());
     }
 
     @Test
-    public void testLoginWithEmptyPassword() throws Exception {
+    public void testLoginWithEmptyPassword() {
         page.doLogin("admin", "");
         assertTrue(page.isLoginError());
     }

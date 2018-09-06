@@ -31,50 +31,51 @@ public abstract class AbstractPage {
 
     public abstract boolean isCorrectPage();
 
-    public String getPageTitle() {
-        return driver.getTitle();
+    public boolean isLoggedAs(String userFullName) {
+        return String.format("Вы вошли как: %s", userFullName).equals(findElementByClass("userInfo").getText());
     }
 
-    public WebElement findElementByClass(String cssClass) {
+    WebElement findElementByClass(String cssClass) {
         return findAndAssertElement(By.className(cssClass));
     }
 
-    public WebElement findLinkByText(String text) {
+    WebElement findLinkByText(String text) {
         return findAndAssertElement(By.linkText(text));
     }
 
-    public void waitSecond() {
+    void waitSecond() {
         driverWait.withTimeout(waitInterval, TimeUnit.SECONDS);
     }
 
-    public void waitSecond(int numberOfSeconds) {
+    void waitSecond(int numberOfSeconds) {
         driverWait.withTimeout((numberOfSeconds <= 0) ? waitInterval : numberOfSeconds, TimeUnit.SECONDS);
     }
 
-    public WebElement getInputFieldById(String id) {
+    WebElement getInputFieldById(String id) {
         return getElementByXpath(".//input[@id='" + id + "']");
     }
 
-    public String getPageHeader() {
+    String getPageHeader() {
         return getElementByXpath(".//h1").getText();
     }
 
 
-    public WebElement getSubmitButton() {
+    WebElement getSubmitButton() {
         return getElementByXpath(".//input[@type='submit']");
     }
 
-    public WebElement getSubmitButton(String caption) {
+    WebElement getSubmitButton(String caption) {
         return getElementByXpath(".//input[@type='submit' and @value='" + caption + "']");
     }
 
-    public WebDriver getDriver() {
+    WebDriver getDriver() {
         return driver;
     }
 
-    public int getServerPort() {
+    int getServerPort() {
         return serverPort;
     }
+
 
     private WebElement getElementByXpath(String selector) {
         By xpathSelector = By.xpath(selector);

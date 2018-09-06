@@ -24,4 +24,9 @@ public class WebPageFactory implements WebApplication {
     public IndexPage openIndexPage(int serverPort) {
         return new IndexPage(driver, serverPort);
     }
+
+    @Override
+    public IndexPage openIndexPageAsUser(int serverPort, String userLogin) {
+        return new IndexPage(driver, serverPort, userLogin);
+    }
 }

@@ -14,7 +14,8 @@ import static org.junit.Assert.assertNotNull;
  */
 public abstract class AbstractPage {
     private static final int ONE_SECOND = 1;
-    private static final String BASE_URL = "http://localhost:%d%s";
+    private static final String APPLICATION_HOST = System.getProperty("applicationHost", "localhost");
+    private static final String BASE_URL = "http://" + APPLICATION_HOST + ":%d%s";
 
     private WebDriver driver;
     private WebDriverWait driverWait;

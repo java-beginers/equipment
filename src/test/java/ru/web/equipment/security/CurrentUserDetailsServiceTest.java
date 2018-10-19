@@ -5,6 +5,7 @@ import org.mockito.stubbing.Answer;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.web.equipment.entity.UserRole;
 import ru.web.equipment.repository.UserRepository;
@@ -55,7 +56,7 @@ public class CurrentUserDetailsServiceTest {
      * Если в БД нету пользователя, но указаны параметры для амина и логин совпадает c тем, что в параметре, то вернется админ
      */
     @Test
-    public void testVirtualAdminCreateIfNoUserExistsAndLoginLikeInParams() throws Exception {
+    public void testVirtualAdminCreateIfNoUserExistsAndLoginLikeInParams() {
         UserDetails userDetails = service.loadUserByUsername(LOGIN);
         assertNotNull(userDetails);
         assertEquals(passwordEncoder.encode(PASSWORD), userDetails.getPassword());
@@ -73,8 +74,8 @@ public class CurrentUserDetailsServiceTest {
     /**
      * Если в БД нету пользователя, указаны параметры для амина, но логин НЕ совпадает c тем, что в параметре, то вернется CurrentUserDetails(null)
      */
-    @Test
-    public void testNullReturnsIfNoUserExistsAndLoginNotLikeInParams() throws Exception {
+    @Test(expected = UsernameNotFoundException.class)
+    public void testExceptionIsThrownIfNoSouchUser() {
         UserDetails userDetails = service.loadUserByUsername("blabla");
         assertNotNull(userDetails);
         assertEquals(null, userDetails.getPassword());

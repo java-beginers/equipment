@@ -10,6 +10,7 @@ public class TestUtils {
 
     /**
      * Преобразует строку в дату.
+     *
      * @param dateString строка с датой вида 22.09.2017
      * @return Дата
      * @throws Exception Если что-то пойдет не так.

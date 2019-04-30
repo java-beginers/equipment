@@ -97,9 +97,9 @@
             eqp_damaged boolean,
             CONSTRAINT equipments_pk PRIMARY KEY(eqp_pcode),
             CONSTRAINT equipments_cat_fk FOREIGN KEY(eqp_catcode)
-                REFERENCES categories(cat_pcode),
+            REFERENCES categories(cat_pcode),
             CONSTRAINT equipments_vnd_fk FOREIGN KEY(eqp_vndcode)
-                REFERENCES vendors(vnd_pcode));
+            REFERENCES vendors(vnd_pcode));
         </sql>
     </changeSet>
 
@@ -116,11 +116,11 @@
             mov_date date,
             CONSTRAINT movements_pk PRIMARY KEY(mov_pcode),
             CONSTRAINT movements_obj_fk FOREIGN KEY(mov_objcode)
-                REFERENCES equipments(eqp_pcode),
+            REFERENCES equipments(eqp_pcode),
             CONSTRAINT movements_psn_fk FOREIGN KEY(mov_psncode)
-                REFERENCES persons(psn_pcode),
+            REFERENCES persons(psn_pcode),
             CONSTRAINT movements_plc_fk FOREIGN KEY(mov_plccode)
-                REFERENCES places(plc_pcode));
+            REFERENCES places(plc_pcode));
         </sql>
     </changeSet>
 
@@ -157,8 +157,8 @@
         </comment>
         <sql>
             ALTER TABLE equipments ADD CONSTRAINT equipments_psn_fk
-                    FOREIGN KEY(eqp_psncode)
-                        REFERENCES persons(psn_pcode);
+            FOREIGN KEY(eqp_psncode)
+            REFERENCES persons(psn_pcode);
         </sql>
     </changeSet>
 

@@ -12,7 +12,7 @@ import ru.web.equipment.repository.CategoriesRepository;
 /**
  * Контроллер для категорий оборудования.
  */
-@Controller()
+@Controller
 @RequestMapping("/categories")
 public class CategoriesController {
     private static final Logger log = LoggerFactory.getLogger(CategoriesController.class);

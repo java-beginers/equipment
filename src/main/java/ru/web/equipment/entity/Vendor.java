@@ -8,7 +8,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "vendors")
-public class Vendor implements Serializable{
+public class Vendor implements Serializable {
 
     @Id
     @Column(name = "vnd_pcode")

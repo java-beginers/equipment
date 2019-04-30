@@ -4,15 +4,17 @@
     <title>Index</title>
 </head>
 <body>
-<div th:replace="fragments/header :: menu" />
+<div th:replace="fragments/header :: menu"/>
 <h1>Список производителей</h1>
 <div th:each="vnd : ${vendors}" class="item">
     <div class="itemHeader">
         <div class="itemTitle">
-            <a class="action" href="#" th:text="${vnd.name}" th:href="@{/vendors/edit/{vndId}(vndId=${vnd.id})}">name</a>
+            <a class="action" href="#" th:text="${vnd.name}"
+               th:href="@{/vendors/edit/{vndId}(vndId=${vnd.id})}">name</a>
         </div>
         <div class="itemMenu">
-            <a class="action" th:onclick="|confirmDelete('${vnd.name}', '@{/vendors/delete/{vndId}(vndId=${vnd.id})}')|">
+            <a class="action"
+               th:onclick="|confirmDelete('${vnd.name}', '@{/vendors/delete/{vndId}(vndId=${vnd.id})}')|">
                 удалить
             </a>
         </div>

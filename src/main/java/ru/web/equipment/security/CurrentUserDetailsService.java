@@ -21,7 +21,7 @@ import java.util.Date;
  * Created by leonid on 12.11.16.
  */
 @Service
-public class  CurrentUserDetailsService implements UserDetailsService {
+public class CurrentUserDetailsService implements UserDetailsService {
     private static final Logger log = LoggerFactory.getLogger(CurrentUserDetailsService.class);
     private final static int DEFAULT_PASSWORD_AGE = 30; // срок жизни пароля по умолчанию.
     final static String PASSWORD_AGE = "password.max-age";

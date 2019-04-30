@@ -17,17 +17,17 @@ public class Equipment implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @ManyToOne
-    @JoinColumn(name = "eqp_catcode",  nullable = false)
+    @JoinColumn(name = "eqp_catcode", nullable = false)
     private Category category;
     @Transient
     private long categoryCode;
     @ManyToOne
-    @JoinColumn(name = "eqp_vndcode",  nullable = false)
+    @JoinColumn(name = "eqp_vndcode", nullable = false)
     private Vendor vendor;
     @Transient
     private long vendorCode;
     @ManyToOne
-    @JoinColumn(name = "eqp_psncode",  nullable = false)
+    @JoinColumn(name = "eqp_psncode", nullable = false)
     private Person person;
     @Transient
     private long personCode;

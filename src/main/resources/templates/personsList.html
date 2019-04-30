@@ -4,15 +4,17 @@
     <title>Index</title>
 </head>
 <body>
-<div th:replace="fragments/header :: menu" />
+<div th:replace="fragments/header :: menu"/>
 <h1>Список сотрудников</h1>
 <div th:each="psn : ${persons}" class="item">
     <div class="itemHeader">
         <div class="itemTitle">
-            <a class="action" href="#" th:text="${psn.fullName}" th:href="@{/persons/edit/{psnId}(psnId=${psn.id})}"></a>
+            <a class="action" href="#" th:text="${psn.fullName}"
+               th:href="@{/persons/edit/{psnId}(psnId=${psn.id})}"></a>
         </div>
         <div class="itemMenu">
-            <a class="action" th:onclick="|confirmDelete('${psn.fullName}', '@{/persons/delete/{psnId}(psnId=${psn.id})}')|">
+            <a class="action"
+               th:onclick="|confirmDelete('${psn.fullName}', '@{/persons/delete/{psnId}(psnId=${psn.id})}')|">
                 удалить
             </a>
         </div>

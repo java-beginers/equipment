@@ -68,6 +68,7 @@ public class User implements Serializable {
 
     /**
      * Проверяет, не просрочен ли пароль. Проверка выполняется на основе даты последней смены пароля.
+     *
      * @param daysCount Срок годности пароля в днях.
      */
     public void checkPasswordExpired(int daysCount) {
@@ -82,6 +83,7 @@ public class User implements Serializable {
 
     /**
      * Проверяет соответствие пароля и подтверждения
+     *
      * @return {@code true} если пароль и подтверждение совпадают. Иначе - {@code false}
      */
     public boolean isPasswordMatchesConfirm() {
@@ -90,6 +92,7 @@ public class User implements Serializable {
 
     /**
      * Признак того, что это новый пользователь
+     *
      * @return
      */
     public boolean isNewUser() {

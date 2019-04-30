@@ -4,7 +4,7 @@
     <title>Index</title>
 </head>
 <body>
-<div th:replace="fragments/header :: menu" />
+<div th:replace="fragments/header :: menu"/>
 <h1>Новый отдел</h1>
 <form action="#" th:action="@{/places/save}" th:object="${place}" method="post">
     <div class="form">
@@ -17,8 +17,8 @@
                 <input class="form" type="text" th:field="*{name}" id="name" name="username" autofocus="autofocus"/>
             </p>
             <!--<p>-->
-                <!--<label for="description">Описание</label><br/>-->
-                <!--<input class="form" type="text" th:field="*{description}" id="description" name="description"/>-->
+            <!--<label for="description">Описание</label><br/>-->
+            <!--<input class="form" type="text" th:field="*{description}" id="description" name="description"/>-->
             <!--</p>-->
             <input type="hidden" th:field="*{id}"/>
         </div>

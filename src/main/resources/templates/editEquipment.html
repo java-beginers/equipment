@@ -4,7 +4,7 @@
     <title>Index</title>
 </head>
 <body>
-<div th:replace="fragments/header :: menu" />
+<div th:replace="fragments/header :: menu"/>
 <h1>Новая единица оборудования</h1>
 <form action="#" th:action="@{/equipment/save}" th:object="${equipment}" method="post">
     <div class="form">
@@ -17,7 +17,8 @@
                 <select th:field="*{categoryCode}" id="category" name="category">
                     <option th:each="cat : ${allCategories}"
                             th:value="${cat.id}"
-                            th:text="${cat.name}">category name</option>
+                            th:text="${cat.name}">category name
+                    </option>
                 </select>
             </p>
             <p>
@@ -25,7 +26,8 @@
                 <select th:field="*{vendorCode}" id="vendor" name="vendor">
                     <option th:each="ven : ${allVendors}"
                             th:value="${ven.id}"
-                            th:text="${ven.name}">vendor name</option>
+                            th:text="${ven.name}">vendor name
+                    </option>
                 </select>
             </p>
             <p>
@@ -49,7 +51,8 @@
                 <select th:field="*{personCode}" id="person" name="person">
                     <option th:each="psn : ${allPersons}"
                             th:value="${psn.id}"
-                            th:text="${psn.shortName}">short person name</option>
+                            th:text="${psn.shortName}">short person name
+                    </option>
                 </select>
             </p>
             <p>

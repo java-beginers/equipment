@@ -20,6 +20,7 @@ public class ChangePasswordModel {
 
     /**
      * Проверяет, соответствует ли новый пароль подтверждению
+     *
      * @return {@code false} в случае, если новый пароль совпадает с подтверждением. Иначе - {@code true}
      */
     public boolean passwordMismatchesConfirm() {
@@ -29,6 +30,7 @@ public class ChangePasswordModel {
 
     /**
      * Проверяет, соответствует ли старый пароль новому.
+     *
      * @return {@code true} в случае, если новый пароль совпадает со старым. Иначе - {@code false}
      */
     public boolean oldPasswordMatchesNew() {

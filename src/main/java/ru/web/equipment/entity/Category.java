@@ -53,7 +53,7 @@ public class Category implements Serializable {
         if (id != category.id) return false;
         if (name != null ? !name.equals(category.name) : category.name != null) return false;
         return description != null ? description.equals(category.description) : category.description == null;
-}
+    }
 
     @Override
     public int hashCode() {

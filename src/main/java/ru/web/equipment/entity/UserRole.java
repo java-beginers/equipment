@@ -6,7 +6,6 @@ import java.io.Serializable;
 
 /**
  * Перечисление ролей пользователя
- *
  */
 public enum UserRole implements Serializable, GrantedAuthority {
     ROLE_USER("Пользователь"),

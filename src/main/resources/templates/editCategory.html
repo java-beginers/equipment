@@ -4,7 +4,7 @@
     <title>Index</title>
 </head>
 <body>
-<div th:replace="fragments/header :: menu" />
+<div th:replace="fragments/header :: menu"/>
 <h1>Новая категория</h1>
 <form action="#" th:action="@{/categories/save}" th:object="${category}" method="post">
     <div class="form">
